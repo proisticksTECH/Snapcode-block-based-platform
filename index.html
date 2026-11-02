@@ -12,21 +12,15 @@
       background: #101326;
       color: #f7f7ff;
     }
-
     * { box-sizing: border-box; }
-
     body {
       min-height: 100vh;
       margin: 0;
       display: grid;
       place-items: center;
       padding: 2rem;
-      background:
-        radial-gradient(ellipse at 15% 15%, #4838a8 0, transparent 38%),
-        radial-gradient(ellipse at 90% 85%, #087d91 0, transparent 34%),
-        #101326;
+      background: radial-gradient(ellipse at 15% 15%, #4838a8 0, transparent 38%), radial-gradient(ellipse at 90% 85%, #087d91 0, transparent 34%), #101326;
     }
-
     main {
       width: min(760px, 100%);
       padding: clamp(2rem, 7vw, 4.5rem);
@@ -36,7 +30,6 @@
       box-shadow: 0 24px 80px rgb(0 0 0 / 35%);
       text-align: center;
     }
-
     .mark {
       display: inline-grid;
       width: 76px;
@@ -50,29 +43,12 @@
       font-weight: 900;
       transform: rotate(-5deg);
     }
-
     h1 { margin: 0; font-size: clamp(2.6rem, 9vw, 5rem); letter-spacing: -0.07em; }
     h1 span { color: #a997ff; }
     p { max-width: 520px; margin: 1rem auto 0; color: #c4c6dc; font-size: 1.1rem; line-height: 1.7; }
-
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.7rem;
-      margin: 2rem 0;
-    }
-
-    .features span {
-      padding: 0.55rem 0.85rem;
-      border: 1px solid rgb(255 255 255 / 13%);
-      border-radius: 999px;
-      background: rgb(255 255 255 / 6%);
-      color: #e4e3f5;
-      font-size: 0.9rem;
-    }
-
-    a {
+    .features { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; margin: 2rem 0; }
+    .features span { padding: 0.55rem 0.85rem; border: 1px solid rgb(255 255 255 / 13%); border-radius: 999px; background: rgb(255 255 255 / 6%); color: #e4e3f5; font-size: 0.9rem; }
+    .start {
       display: inline-block;
       padding: 0.9rem 1.35rem;
       border-radius: 12px;
@@ -82,11 +58,9 @@
       text-decoration: none;
       transition: transform 160ms ease, background 160ms ease;
     }
-
-    a:hover { transform: translateY(-2px); background: #c0b5ff; }
-    a:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+    .start:hover { transform: translateY(-2px); background: #c0b5ff; }
+    .start:focus-visible { outline: 3px solid white; outline-offset: 4px; }
     footer { margin-top: 2rem; color: #9295b2; font-size: 0.85rem; }
-
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
     }
@@ -102,7 +76,7 @@
       <span>🎨 Get creative</span>
       <span>🚀 Make something yours</span>
     </div>
-    <a href="https://scratch.mit.edu/projects/editor/" target="_blank" rel="noopener noreferrer">Open the Scratch Editor</a>
+    <a class="start" href="./editor.html">Start creating</a>
     <footer>Made for curious minds.</footer>
   </main>
 </body>
