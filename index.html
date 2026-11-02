@@ -7,13 +7,10 @@
   <style>
     :root {
       --bg: #101326;
-      --panel: rgba(18, 21, 42, 0.8);
-      --card: #ffffff;
       --muted: #c0c4d9;
       --purple: #8a7dff;
       --purple-dark: #6557df;
       --green: #2ec27e;
-      --green-dark: #1fa668;
       --yellow: #ffbf47;
       --pink: #ff7fa8;
       --line: #dfe4f5;
@@ -21,307 +18,72 @@
     }
 
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       min-height: 100vh;
       font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(128, 90, 255, 0.4), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(38, 180, 175, 0.35), transparent 30%),
-        var(--bg);
+      background: radial-gradient(circle at top left, rgba(128, 90, 255, 0.4), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(38, 180, 175, 0.35), transparent 30%), var(--bg);
       color: white;
     }
-
     .hidden { display: none !important; }
-
-    .landing {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 32px;
-    }
-
+    .landing { min-height: 100vh; display: grid; place-items: center; padding: 32px; }
     .hero {
-      width: min(760px, 100%);
-      text-align: center;
-      padding: clamp(32px, 6vw, 72px);
-      background: rgba(17, 20, 38, 0.8);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 28px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+      width: min(760px, 100%); text-align: center; padding: clamp(32px, 6vw, 72px);
+      background: rgba(17, 20, 38, 0.8); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 28px; box-shadow: 0 30px 80px rgba(0,0,0,0.35);
     }
-
     .logo {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 18px;
-      border-radius: 22px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--yellow), var(--pink), var(--purple));
-      color: var(--text);
-      font-weight: 900;
-      font-size: 2.2rem;
-      transform: rotate(-7deg);
+      width: 80px; height: 80px; margin: 0 auto 18px; border-radius: 22px; display: grid;
+      place-items: center; background: linear-gradient(135deg, var(--yellow), var(--pink), var(--purple));
+      color: var(--text); font-weight: 900; font-size: 2.2rem; transform: rotate(-7deg);
     }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.6rem, 8vw, 5rem);
-      letter-spacing: -0.08em;
-    }
-
+    h1 { margin: 0; font-size: clamp(2.6rem, 8vw, 5rem); letter-spacing: -0.08em; }
     h1 span { color: #a99aff; }
-
-    p {
-      margin: 16px auto 0;
-      max-width: 560px;
-      line-height: 1.7;
-      font-size: 1.08rem;
-      color: var(--muted);
+    p { margin: 16px auto 0; max-width: 560px; line-height: 1.7; font-size: 1.08rem; color: var(--muted); }
+    .features { margin: 22px 0 30px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+    .features span { padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #ebebff; font-size: 0.9rem; }
+    .start-btn, .run-btn {
+      border: none; border-radius: 14px; padding: 14px 22px; font-weight: 800; font-size: 1rem;
+      cursor: pointer; transition: transform 0.15s ease, opacity 0.15s ease;
     }
-
-    .features {
-      margin: 22px 0 30px;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .features span {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #ebebff;
-      font-size: 0.9rem;
-    }
-
-    .start-btn, .run-btn, .add-btn {
-      border: none;
-      border-radius: 14px;
-      padding: 14px 22px;
-      font-weight: 800;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.15s ease, opacity 0.15s ease;
-    }
-
-    .start-btn {
-      background: linear-gradient(135deg, var(--purple), #bfa2ff);
-      color: #1b1831;
-    }
-
-    .run-btn {
-      background: linear-gradient(135deg, var(--green), #7ad6a8);
-      color: #0d2a1f;
-    }
-
-    .add-btn {
-      background: #f3f5ff;
-      color: var(--text);
-      border: 1px solid var(--line);
-    }
-
-    .start-btn:hover, .run-btn:hover, .add-btn:hover {
-      transform: translateY(-1px);
-    }
-
-    .app {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 14px 18px;
-      background: rgba(255,255,255,0.96);
-      border-radius: 16px;
-      color: var(--text);
-      box-shadow: 0 10px 30px rgba(11, 12, 26, 0.2);
-    }
-
-    .brand {
-      font-weight: 900;
-      letter-spacing: -0.06em;
-      color: var(--purple-dark);
-      font-size: 1.6rem;
-    }
-
-    .toolbar .stack {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .workspace {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: 260px 1fr 320px;
-      gap: 18px;
-      min-height: 560px;
-    }
-
-    .sidebar, .code-panel, .stage-panel {
-      background: rgba(255,255,255,0.96);
-      border-radius: 18px;
-      color: var(--text);
-      box-shadow: 0 10px 30px rgba(11, 12, 26, 0.18);
-      overflow: hidden;
-    }
-
-    .panel-head {
-      padding: 16px 18px 12px;
-      font-weight: 800;
-      border-bottom: 1px solid var(--line);
-      background: #f8f9ff;
-    }
-
-    .block-list {
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .block {
-      border: none;
-      border-radius: 12px;
-      padding: 12px 14px;
-      text-align: left;
-      font-weight: 700;
-      cursor: pointer;
-      color: var(--text);
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04);
-      transition: transform 0.12s ease;
-    }
-
+    .start-btn { background: linear-gradient(135deg, var(--purple), #bfa2ff); color: #1b1831; }
+    .run-btn { background: linear-gradient(135deg, var(--green), #7ad6a8); color: #0d2a1f; }
+    .start-btn:hover, .run-btn:hover { transform: translateY(-1px); }
+    .app { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 18px; background: rgba(255,255,255,0.96); border-radius: 16px; color: var(--text); box-shadow: 0 10px 30px rgba(11,12,26,0.2); }
+    .brand { font-weight: 900; letter-spacing: -0.06em; color: var(--purple-dark); font-size: 1.6rem; }
+    .workspace { margin-top: 18px; display: grid; grid-template-columns: 260px 1fr 320px; gap: 18px; min-height: 560px; }
+    .sidebar, .code-panel, .stage-panel { background: rgba(255,255,255,0.96); border-radius: 18px; color: var(--text); box-shadow: 0 10px 30px rgba(11,12,26,0.18); overflow: hidden; }
+    .panel-head { padding: 16px 18px 12px; font-weight: 800; border-bottom: 1px solid var(--line); background: #f8f9ff; }
+    .category-label { padding: 12px 14px 0; color: #68708c; font-size: 0.75rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+    .block-list { padding: 10px 14px 14px; display: flex; flex-direction: column; gap: 9px; }
+    .block { border: none; border-radius: 12px; padding: 12px 14px; text-align: left; font-weight: 700; cursor: pointer; color: var(--text); box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04); transition: transform 0.12s ease; }
     .block:hover { transform: translateY(-1px); }
-
     .say { background: #fff4c9; }
     .move { background: #dff7ee; }
     .jump { background: #e6e0ff; }
     .repeat { background: #ffe4ee; }
-
-    .script-panel {
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-    }
-
-    .script-area {
-      flex: 1;
-      padding: 18px;
-      background: linear-gradient(180deg, #fafbff, #f4f6ff);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      min-height: 320px;
-    }
-
-    .script-block {
-      position: relative;
-      min-height: 54px;
-      display: flex;
-      align-items: center;
-      padding: 12px 16px 12px 20px;
-      border-radius: 14px;
-      font-weight: 700;
-      background: white;
-      border: 1px solid var(--line);
-      box-shadow: 0 5px 12px rgba(18, 21, 42, 0.08);
-    }
-
-    .script-block::before {
-      content: "";
-      position: absolute;
-      left: 8px;
-      top: 10px;
-      bottom: 10px;
-      width: 6px;
-      border-radius: 999px;
-      background: var(--purple);
-    }
-
+    .event { background: #ffcf69; }
+    .sound { background: #d9c9ff; }
+    .script-panel { display: flex; flex-direction: column; min-height: 0; }
+    .script-area { flex: 1; padding: 18px; background: linear-gradient(180deg, #fafbff, #f4f6ff); display: flex; flex-direction: column; gap: 12px; min-height: 320px; }
+    .script-block { position: relative; min-height: 54px; display: flex; align-items: center; padding: 12px 16px 12px 20px; border-radius: 14px; font-weight: 700; background: white; border: 1px solid var(--line); box-shadow: 0 5px 12px rgba(18,21,42,0.08); }
+    .script-block::before { content: ""; position: absolute; left: 8px; top: 10px; bottom: 10px; width: 6px; border-radius: 999px; background: var(--purple); }
     .script-block.say::before { background: var(--yellow); }
     .script-block.move::before { background: var(--green); }
     .script-block.jump::before { background: var(--purple); }
     .script-block.repeat::before { background: var(--pink); }
-
-    .stage-panel {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .stage {
-      position: relative;
-      flex: 1;
-      background: linear-gradient(180deg, #dfeeff, #bfe8ff 60%, #d7f6df);
-      overflow: hidden;
-      min-height: 320px;
-    }
-
-    .ground {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 50px;
-      background: linear-gradient(180deg, rgba(22, 128, 86, 0.4), rgba(22, 128, 86, 0.65));
-    }
-
-    .sprite {
-      position: absolute;
-      left: 50%;
-      bottom: 54px;
-      width: 72px;
-      height: 72px;
-      transform: translateX(-50%);
-      transition: left 0.4s ease, bottom 0.4s ease;
-      display: grid;
-      place-items: center;
-      font-size: 2.2rem;
-      background: linear-gradient(135deg, #ffd374, #ffa54d);
-      border-radius: 22px 22px 18px 18px;
-      box-shadow: 0 12px 18px rgba(0,0,0,0.12);
-    }
-
-    .code-panel {
-      padding: 0;
-    }
-
-    .code-box {
-      margin: 0;
-      padding: 18px;
-      min-height: 170px;
-      color: #37415f;
-      background: #f7f8ff;
-      font-family: Consolas, monospace;
-      font-size: 0.9rem;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .note {
-      padding: 18px;
-      background: #f8f9ff;
-      border-top: 1px solid var(--line);
-      color: #485274;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 980px) {
-      .workspace {
-        grid-template-columns: 1fr;
-      }
-    }
+    .script-block.event::before { background: #f0a900; }
+    .script-block.sound::before { background: #8b5cf6; }
+    .stage-panel { display: flex; flex-direction: column; }
+    .stage { position: relative; flex: 1; background: linear-gradient(180deg, #dfeeff, #bfe8ff 60%, #d7f6df); overflow: hidden; min-height: 320px; }
+    .ground { position: absolute; left: 0; right: 0; bottom: 0; height: 50px; background: linear-gradient(180deg, rgba(22,128,86,0.4), rgba(22,128,86,0.65)); }
+    .sprite { position: absolute; left: 50%; bottom: 54px; width: 72px; height: 72px; transform: translateX(-50%); transition: left 0.4s ease, bottom 0.4s ease; display: grid; place-items: center; font-size: 2.2rem; background: linear-gradient(135deg, #ffd374, #ffa54d); border-radius: 22px 22px 18px 18px; box-shadow: 0 12px 18px rgba(0,0,0,0.12); cursor: pointer; user-select: none; }
+    .code-panel { padding: 0; }
+    .code-box { margin: 0; padding: 18px; min-height: 170px; color: #37415f; background: #f7f8ff; font-family: Consolas, monospace; font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+    .note { padding: 18px; background: #f8f9ff; border-top: 1px solid var(--line); color: #485274; font-size: 0.9rem; }
+    @media (max-width: 980px) { .workspace { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -330,31 +92,35 @@
       <div class="logo" aria-hidden="true">S</div>
       <h1>Snap<span>code</span></h1>
       <p>Bring your ideas to life with visual blocks. Click start and build your own tiny app in the Snapcode editor.</p>
-      <div class="features">
-        <span>🧩 Build with blocks</span>
-        <span>🎨 Make your own project</span>
-        <span>🚀 Start creating</span>
-      </div>
-      <button class="start-btn" id="startBtn">Start creating</button>
+      <div class="features"><span>🧩 Build with blocks</span><span>🎨 Make your own project</span><span>🚀 Start creating</span></div>
+      <button class="start-btn" id="startBtn" type="button">Start creating</button>
     </div>
   </div>
 
   <div class="app hidden" id="app">
     <div class="toolbar">
       <div class="brand">Snapcode</div>
-      <div class="stack">
-        <button class="run-btn" id="runBtn">Run</button>
-      </div>
+      <button class="run-btn" id="runBtn" type="button">▶ Run</button>
     </div>
-
     <div class="workspace">
       <aside class="sidebar">
         <div class="panel-head">Blocks</div>
+        <div class="category-label">Events</div>
         <div class="block-list">
-          <button class="block say" data-kind="say">Say "Hello!"</button>
-          <button class="block move" data-kind="move">Move 50 steps</button>
-          <button class="block jump" data-kind="jump">Jump</button>
-          <button class="block repeat" data-kind="repeat">Repeat 3 times</button>
+          <button class="block event" data-kind="eventFlag" type="button">🟡 When Run is clicked</button>
+          <button class="block event" data-kind="eventSprite" type="button">🐱 When sprite is clicked</button>
+        </div>
+        <div class="category-label">Motion &amp; Looks</div>
+        <div class="block-list">
+          <button class="block say" data-kind="say" type="button">Say “Hello!”</button>
+          <button class="block move" data-kind="move" type="button">Move 50 steps</button>
+          <button class="block jump" data-kind="jump" type="button">Jump</button>
+          <button class="block repeat" data-kind="repeat" type="button">Repeat 3 times</button>
+        </div>
+        <div class="category-label">Sound</div>
+        <div class="block-list">
+          <button class="block sound" data-kind="soundPop" type="button">🔊 Play pop sound</button>
+          <button class="block sound" data-kind="soundNote" type="button">🎵 Play a note</button>
         </div>
       </aside>
 
@@ -366,16 +132,15 @@
       <aside class="stage-panel">
         <div class="panel-head">Stage</div>
         <div class="stage">
-          <div class="sprite" id="sprite">🐱</div>
+          <div class="sprite" id="sprite" title="Click me to trigger a sprite-click event" role="button" tabindex="0" aria-label="Snapcode sprite">🐱</div>
           <div class="ground"></div>
         </div>
-        <div class="note" id="status">Press Run to test your program.</div>
+        <div class="note" id="status" role="status" aria-live="polite">Add a “When Run is clicked” event, then press Run. Or add the sprite-click event and click the cat.</div>
       </aside>
 
       <aside class="code-panel" style="grid-column: 1 / -1;">
         <div class="panel-head">Generated code</div>
-        <pre class="code-box" id="codeBox">// Snapcode program
-</pre>
+        <pre class="code-box" id="codeBox">// Snapcode program</pre>
       </aside>
     </div>
   </div>
@@ -383,58 +148,60 @@
   <script>
     const landing = document.getElementById('landing');
     const app = document.getElementById('app');
-    const startBtn = document.getElementById('startBtn');
     const scriptArea = document.getElementById('scriptArea');
     const codeBox = document.getElementById('codeBox');
     const sprite = document.getElementById('sprite');
     const statusBox = document.getElementById('status');
     const runBtn = document.getElementById('runBtn');
-
+    const labels = {
+      eventFlag: '🟡 When Run is clicked',
+      eventSprite: '🐱 When sprite is clicked',
+      say: 'Say “Hello!”',
+      move: 'Move 50 steps',
+      jump: 'Jump',
+      repeat: 'Repeat 3 times',
+      soundPop: '🔊 Play pop sound',
+      soundNote: '🎵 Play a note'
+    };
     let script = [];
+    let audioContext;
 
     function addBlock(kind) {
-      const labels = {
-        say: 'Say "Hello!"',
-        move: 'Move 50 steps',
-        jump: 'Jump',
-        repeat: 'Repeat 3 times'
-      };
-
       script.push(kind);
       renderScript();
     }
 
-    function renderScript() {
-      scriptArea.innerHTML = '';
+    function blockCode(kind) {
+      return {
+        eventFlag: 'whenRunClicked(() => {',
+        eventSprite: 'whenSpriteClicked(() => {',
+        say: '  say("Hello!");',
+        move: '  move(50);',
+        jump: '  jump();',
+        repeat: '  repeat(3, () => move(50));',
+        soundPop: '  playSound("pop");',
+        soundNote: '  playNote(523.25, 0.3);'
+      }[kind] || '';
+    }
 
+    function renderScript() {
+      scriptArea.replaceChildren();
       if (script.length === 0) {
         const empty = document.createElement('div');
         empty.className = 'script-block';
-        empty.textContent = 'Your script is empty.';
+        empty.textContent = 'Your script is empty. Add blocks from the left.';
         scriptArea.appendChild(empty);
       }
-
       script.forEach((kind) => {
         const block = document.createElement('div');
-        block.className = `script-block ${kind}`;
-        block.textContent = {
-          say: 'Say "Hello!"',
-          move: 'Move 50 steps',
-          jump: 'Jump',
-          repeat: 'Repeat 3 times'
-        }[kind];
+        block.className = `script-block ${kind.startsWith('event') ? 'event' : kind.startsWith('sound') ? 'sound' : kind}`;
+        block.textContent = labels[kind];
         scriptArea.appendChild(block);
       });
-
-      codeBox.textContent = `// Snapcode program\n${script.map((kind) => {
-        switch (kind) {
-          case 'say': return 'say("Hello!");';
-          case 'move': return 'move(50);';
-          case 'jump': return 'jump();';
-          case 'repeat': return 'repeat(3, () => {\n  move(50);\n});';
-          default: return '';
-        }
-      }).join('\n') || '// empty script'}`;
+      const lines = script.map(blockCode);
+      codeBox.textContent = script.some(kind => kind.startsWith('event'))
+        ? `// Snapcode program\n${lines.join('\n')}\n${script.some(kind => kind.startsWith('event')) ? '});' : ''}`
+        : `// Snapcode program\n${lines.join('\n') || '// empty script'}`;
     }
 
     function resetSprite() {
@@ -442,86 +209,111 @@
       sprite.style.bottom = '54px';
     }
 
-    function runScript() {
-      if (script.length === 0) {
-        statusBox.textContent = 'Add some blocks first.';
+    function playTone(frequency, duration, waveform = 'sine') {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) {
+        statusBox.textContent = 'Audio is not supported in this browser.';
+        return;
+      }
+      audioContext = audioContext || new AudioContextClass();
+      if (audioContext.state === 'suspended') audioContext.resume();
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = waveform;
+      oscillator.frequency.value = frequency;
+      gain.gain.setValueAtTime(0.18, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + duration);
+    }
+
+    function runScript(trigger = 'flag') {
+      const eventIndices = script.map((kind, index) => kind.startsWith('event') ? index : -1).filter(index => index >= 0);
+      let body = script;
+      if (eventIndices.length > 0) {
+        const expectedEvent = trigger === 'flag' ? 'eventFlag' : 'eventSprite';
+        const eventIndex = eventIndices.find(index => script[index] === expectedEvent);
+        if (eventIndex < 0) {
+          statusBox.textContent = trigger === 'flag'
+            ? 'This script starts when the cat is clicked.'
+            : 'Add “When sprite is clicked” to use this trigger.';
+          return;
+        }
+        const nextEventIndex = eventIndices.find(index => index > eventIndex);
+        body = script.slice(eventIndex + 1, nextEventIndex === undefined ? script.length : nextEventIndex);
+      }
+      if (body.length === 0) {
+        statusBox.textContent = 'Add some action or sound blocks after the event block.';
         return;
       }
 
       resetSprite();
       statusBox.textContent = 'Running...';
-
       let index = 0;
 
       function step() {
-        if (index >= script.length) {
+        if (index >= body.length) {
           statusBox.textContent = 'Program finished!';
           return;
         }
-
-        const kind = script[index];
-        index += 1;
-
+        const kind = body[index++];
+        if (kind === 'eventFlag' || kind === 'eventSprite') { step(); return; }
         if (kind === 'say') {
           statusBox.textContent = 'Hello!';
           setTimeout(step, 500);
-          return;
-        }
-
-        if (kind === 'move') {
-          const currentLeft = parseFloat(sprite.style.left || '50%');
+        } else if (kind === 'move') {
+          const currentLeft = parseFloat(sprite.style.left || '50');
           sprite.style.left = `${Math.min(90, currentLeft + 14)}%`;
-          statusBox.textContent = 'Moving...';
+          statusBox.textContent = 'Moving 50 steps...';
           setTimeout(step, 500);
-          return;
-        }
-
-        if (kind === 'jump') {
+        } else if (kind === 'jump') {
           sprite.style.bottom = '130px';
           statusBox.textContent = 'Jump!';
-          setTimeout(() => {
-            sprite.style.bottom = '54px';
-            setTimeout(step, 250);
-          }, 320);
-          return;
-        }
-
-        if (kind === 'repeat') {
-          statusBox.textContent = 'Repeating 3 times...';
+          setTimeout(() => { sprite.style.bottom = '54px'; setTimeout(step, 250); }, 320);
+        } else if (kind === 'repeat') {
+          statusBox.textContent = 'Repeating movement 3 times...';
           let count = 0;
-          const repeatSteps = ['move', 'move', 'move'];
-
-          function repeatStep() {
-            if (count >= repeatSteps.length) {
-              setTimeout(step, 250);
-              return;
-            }
-
-            const currentLeft = parseFloat(sprite.style.left || '50%');
+          const repeatStep = () => {
+            if (count >= 3) { setTimeout(step, 250); return; }
+            const currentLeft = parseFloat(sprite.style.left || '50');
             sprite.style.left = `${Math.min(90, currentLeft + 12)}%`;
+            statusBox.textContent = `Repeat ${count + 1}/3`;
             count += 1;
-            statusBox.textContent = `Repeat ${count}/3`;
             setTimeout(repeatStep, 280);
-          }
-
+          };
           repeatStep();
+        } else if (kind === 'soundPop') {
+          playTone(740, 0.18, 'triangle');
+          statusBox.textContent = '🔊 Pop!';
+          setTimeout(step, 350);
+        } else if (kind === 'soundNote') {
+          playTone(523.25, 0.3, 'sine');
+          statusBox.textContent = '🎵 Playing a note...';
+          setTimeout(step, 450);
+        } else {
+          step();
         }
       }
-
       step();
     }
 
-    document.querySelectorAll('.block').forEach((button) => {
+    document.querySelectorAll('.block').forEach(button => {
       button.addEventListener('click', () => addBlock(button.dataset.kind));
     });
-
-    startBtn.addEventListener('click', () => {
+    document.getElementById('startBtn').addEventListener('click', () => {
       landing.classList.add('hidden');
       app.classList.remove('hidden');
     });
-
-    runBtn.addEventListener('click', runScript);
-
+    runBtn.addEventListener('click', () => runScript('flag'));
+    sprite.addEventListener('click', () => runScript('sprite'));
+    sprite.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        runScript('sprite');
+      }
+    });
     renderScript();
   </script>
 </body>
