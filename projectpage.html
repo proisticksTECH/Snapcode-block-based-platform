@@ -43,7 +43,7 @@
     .layout {
       min-height: calc(100vh - 64px);
       display: grid;
-      grid-template-columns: minmax(220px, 1fr) 480px;
+      grid-template-columns: 480px minmax(220px, 1fr);
       align-items: center;
       gap: clamp(24px, 6vw, 84px);
       padding: 28px clamp(20px, 6vw, 80px);
@@ -53,7 +53,7 @@
     .details p { color: #70748a; line-height: 1.65; }
     .actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0; }
     #previewStatus { min-height: 44px; color: #606780; white-space: pre-wrap; overflow-wrap: anywhere; }
-    .stage-column { width: 480px; justify-self: end; }
+    .stage-column { width: 480px; justify-self: start; }
     .stage-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; color: #606780; font-size: 0.9rem; font-weight: 700; }
     .stage {
       width: 480px;
@@ -92,18 +92,18 @@
     <button class="button" id="runButton" type="button">▶ Run Project</button>
   </header>
   <main class="layout">
+    <aside class="stage-column" aria-label="Project stage">
+      <div class="stage-label"><span>Stage</span><span>480 × 640</span></div>
+      <div class="stage" id="stage" aria-label="480 by 640 project preview stage"></div>
+    </aside>
     <section class="details">
       <h1>Your project</h1>
-      <p>This is your project preview. The 480 × 640 stage is on the right. Return to the editor to change your blocks, then open See Project again to preview the latest version.</p>
+      <p>This is your project preview. The 480 × 640 stage is on the left. Return to the editor to change your blocks, then open See Project again to preview the latest version.</p>
       <div class="actions">
         <a class="button secondary" href="./editor.html">Edit project</a>
       </div>
       <div id="previewStatus" role="status" aria-live="polite">Press Run Project to display your program's output on the stage.</div>
     </section>
-    <aside class="stage-column" aria-label="Project stage">
-      <div class="stage-label"><span>Stage</span><span>480 × 640</span></div>
-      <div class="stage" id="stage" aria-label="480 by 640 project preview stage"></div>
-    </aside>
   </main>
   <script>
     const storageKey = 'snapcode-project-preview';
@@ -130,7 +130,6 @@
       const lines = [];
       const print = value => lines.push(String(value));
       try {
-        // The Blockly text print block uses alert; show that output on the stage instead.
         new Function('alert', project.code)(print);
         stage.textContent = lines.join('\n') || 'Project ran successfully!';
         status.textContent = 'Project ran on the stage.';
