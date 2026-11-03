@@ -46,60 +46,51 @@
     .run:hover { background: #168653; }
     .preview { background: #ff9f43; color: #2a1900; }
     .preview:hover { background: #ffb267; }
-    .tabs {
-      display: flex;
-      gap: 4px;
-      align-items: end;
-      padding: 10px 18px 0;
-      border-bottom: 1px solid #e2e4ed;
-      background: #fff;
-    }
-    .tab {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 18px;
-      border-radius: 10px 10px 0 0;
-      background: #f0f1f5;
-      color: #62677c;
-      font-weight: 750;
-    }
+    .tabs { display: flex; gap: 4px; align-items: end; padding: 10px 18px 0; border-bottom: 1px solid #e2e4ed; background: #fff; }
+    .tab { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 10px 10px 0 0; background: #f0f1f5; color: #62677c; font-weight: 750; }
     .tab:hover { background: #e7e8ef; }
     .tab[aria-selected="true"] { position: relative; z-index: 1; margin-bottom: -1px; border: 1px solid #e2e4ed; border-bottom-color: #fff; background: #fff; color: #5b4bdb; }
     main { padding: 18px; }
     .tab-panel[hidden] { display: none; }
-    .workspace-wrap {
-      height: min(74vh, 680px);
-      min-height: 360px;
-      overflow: hidden;
-      border: 1px solid #e2e4ed;
-      border-radius: 16px;
-      background: #fff;
-      box-shadow: 0 8px 26px rgb(35 39 70 / 7%);
-    }
+    .workspace-wrap { height: min(74vh, 680px); min-height: 360px; overflow: hidden; border: 1px solid #e2e4ed; border-radius: 16px; background: #fff; box-shadow: 0 8px 26px rgb(35 39 70 / 7%); }
     #blocklyDiv { width: 100%; height: 100%; }
-    .bottom {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(250px, 360px);
-      gap: 16px;
-      margin-top: 16px;
-    }
-    .panel {
-      min-height: 118px;
-      padding: 16px 18px;
-      border: 1px solid #e2e4ed;
-      border-radius: 14px;
-      background: #fff;
-    }
+    .bottom { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 360px); gap: 16px; margin-top: 16px; }
+    .panel { min-height: 118px; padding: 16px 18px; border: 1px solid #e2e4ed; border-radius: 14px; background: #fff; }
     .panel h2 { margin: 0 0 8px; font-size: 0.95rem; }
     #output { min-height: 42px; color: #646980; white-space: pre-wrap; overflow-wrap: anywhere; }
     #code { max-height: 100px; overflow: auto; margin: 0; color: #62677c; font: 0.78rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; }
     .asset-view { min-height: 390px; padding: 24px; border: 1px solid #e2e4ed; border-radius: 16px; background: #fff; box-shadow: 0 8px 26px rgb(35 39 70 / 7%); }
     .asset-view h1 { margin: 0 0 8px; color: #34394f; font-size: 1.4rem; }
-    .asset-view > p { margin: 0 0 20px; color: #70748a; }
-    .asset-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 18px; }
-    .asset-toolbar input[type="file"] { max-width: 100%; color: #62677c; }
-    .costume-list, .sound-list { display: flex; flex-wrap: wrap; gap: 14px; }
+    .asset-view > p { margin: 0 0 18px; color: #70748a; }
+    .paint-editor { display: grid; grid-template-columns: 48px minmax(0, 1fr) 190px; min-height: 390px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; background: #f9f9f9; }
+    .paint-tools { display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 9px 5px; border-right: 1px solid #ddd; }
+    .paint-tool { width: 34px; height: 34px; display: grid; place-items: center; padding: 0; border: 1px solid transparent; border-radius: 5px; background: transparent; color: #575e75; font-size: 17px; }
+    .paint-tool:hover { background: #eee; }
+    .paint-tool.active { border-color: #ddd; background: #fff; color: #00897b; box-shadow: 0 1px 3px #0002; }
+    .paint-canvas-wrap { display: grid; place-items: center; min-width: 0; padding: 14px; overflow: auto; background: #e9edf4; }
+    .paint-canvas-stack { position: relative; width: min(480px, 100%); aspect-ratio: 4 / 3; box-shadow: 0 0 10px #0002; background: #fff; }
+    .paint-canvas-stack canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; background: transparent; touch-action: none; }
+    #costumeBaseCanvas { background: #fff; }
+    #costumeOverlayCanvas { z-index: 1; cursor: crosshair; }
+    .paint-properties { display: flex; flex-direction: column; gap: 10px; padding: 10px; border-left: 1px solid #ddd; background: #f9f9f9; }
+    .paint-section { padding: 9px; border: 1px solid #ddd; border-radius: 5px; background: #fff; }
+    .paint-title { margin-bottom: 7px; color: #575e75; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+    .paint-color-row { display: flex; align-items: center; gap: 8px; }
+    #paintColor { width: 40px; height: 34px; padding: 2px; border: 1px solid #bbb; border-radius: 5px; background: #fff; }
+    #paintColorName { color: #70748a; font-size: 12px; }
+    .paint-size-row { display: flex; align-items: center; gap: 7px; }
+    #paintSize { width: 100%; }
+    #paintSizeValue { min-width: 28px; color: #70748a; font-size: 12px; text-align: right; }
+    .paint-hint { color: #777; font-size: 11px; line-height: 1.5; }
+    .stamp-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .stamp-button { min-width: 0; padding: 6px 2px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9; color: #34394f; font-size: 20px; }
+    .stamp-button:hover { border-color: #00897b; background: #eef8f7; }
+    .paint-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .paint-action { padding: 9px 13px; border-radius: 8px; font-size: 13px; }
+    .paint-action.secondary { background: #687087; }
+    .paint-action.secondary:hover { background: #51586d; }
+    .paint-status { min-height: 20px; margin-top: 9px; color: #62677c; font-size: 12px; }
+    .costume-list, .sound-list { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 16px; }
     .costume-card { width: 144px; padding: 10px; border: 1px solid #e2e4ed; border-radius: 12px; background: #fafbff; text-align: center; }
     .costume-card img { width: 120px; height: 120px; object-fit: contain; }
     .costume-card p { margin: 6px 0 0; overflow-wrap: anywhere; font-size: .85rem; }
@@ -107,6 +98,11 @@
     .sound-card strong { display: block; margin-bottom: 8px; overflow-wrap: anywhere; }
     .sound-card audio { width: 100%; }
     .empty-assets { padding: 18px; border: 1px dashed #cbd0de; border-radius: 12px; color: #858b9e; }
+    @media (max-width: 850px) {
+      .paint-editor { grid-template-columns: 46px minmax(0, 1fr); }
+      .paint-properties { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid #ddd; border-left: 0; }
+      .paint-properties .paint-hint, .paint-properties .paint-actions, .paint-properties .paint-status { grid-column: 1 / -1; }
+    }
     @media (max-width: 700px) {
       header { gap: 10px; padding: 0 12px; }
       .project-name { display: none; }
@@ -115,7 +111,8 @@
       .bottom { grid-template-columns: 1fr; }
       .tabs { padding-left: 10px; }
       .tab { padding: 10px 12px; }
-      .asset-view { padding: 16px; }
+      .asset-view { padding: 14px; }
+      .paint-canvas-wrap { padding: 8px; }
     }
   </style>
 </head>
@@ -143,12 +140,52 @@
     <section class="tab-panel" id="costumesPanel" role="tabpanel" aria-labelledby="costumesTab" hidden>
       <div class="asset-view">
         <h1>Costumes</h1>
-        <p>Add image files to use as project costumes. Uploaded costumes are stored in this browser.</p>
-        <div class="asset-toolbar">
-          <label for="costumeUpload"><strong>Upload costume images</strong></label>
-          <input id="costumeUpload" type="file" accept="image/*" multiple>
+        <p>Draw or stamp directly on the costume canvas. You can also import an image and save your finished costume.</p>
+        <div class="paint-editor" aria-label="Costume paint editor">
+          <div class="paint-tools" aria-label="Paint tools">
+            <button class="paint-tool active" id="paintBrushTool" type="button" title="Brush" aria-label="Brush">🖌️</button>
+            <button class="paint-tool" id="paintLineTool" type="button" title="Line" aria-label="Line">📏</button>
+            <button class="paint-tool" id="paintSelectTool" type="button" title="Select and move stamp" aria-label="Select and move stamp">🖱️</button>
+            <button class="paint-tool" id="paintEraserTool" type="button" title="Eraser" aria-label="Eraser">🧹</button>
+            <span class="spacer"></span>
+            <button class="paint-tool" id="paintUndoTool" type="button" title="Undo" aria-label="Undo">↩️</button>
+          </div>
+          <div class="paint-canvas-wrap">
+            <div class="paint-canvas-stack">
+              <canvas id="costumeBaseCanvas" width="480" height="360" aria-label="Costume drawing canvas"></canvas>
+              <canvas id="costumeOverlayCanvas" width="480" height="360" aria-label="Drawing and selection layer"></canvas>
+            </div>
+          </div>
+          <aside class="paint-properties">
+            <div class="paint-section">
+              <div class="paint-title">Color</div>
+              <div class="paint-color-row"><input id="paintColor" type="color" value="#ff0000" aria-label="Brush color"><span id="paintColorName">#ff0000</span></div>
+            </div>
+            <div class="paint-section">
+              <div class="paint-title">Brush size</div>
+              <div class="paint-size-row"><input id="paintSize" type="range" min="1" max="50" value="5" aria-label="Brush size"><span id="paintSizeValue">5 px</span></div>
+            </div>
+            <div class="paint-section">
+              <div class="paint-title">Stamps</div>
+              <div class="stamp-list" aria-label="Stamp gallery">
+                <button class="stamp-button" type="button" data-stamp="🐱" title="Cat">🐱</button>
+                <button class="stamp-button" type="button" data-stamp="⭐" title="Star">⭐</button>
+                <button class="stamp-button" type="button" data-stamp="🏠" title="House">🏠</button>
+                <button class="stamp-button" type="button" data-stamp="🌳" title="Tree">🌳</button>
+                <button class="stamp-button" type="button" data-stamp="☀️" title="Sun">☀️</button>
+                <button class="stamp-button" type="button" data-stamp="❤️" title="Heart">❤️</button>
+              </div>
+            </div>
+            <div class="paint-hint" id="paintHint" role="status">Brush: draw freehand on the costume.</div>
+            <div class="paint-actions">
+              <label class="paint-action secondary" for="costumeImageUpload" style="display:inline-block;cursor:pointer">Import image</label>
+              <input id="costumeImageUpload" type="file" accept="image/*" hidden>
+              <button class="paint-action" id="saveCostume" type="button">Save Costume</button>
+            </div>
+            <div class="paint-status" id="paintStatus" aria-live="polite">Canvas is ready.</div>
+          </aside>
         </div>
-        <div class="costume-list" id="costumeList"><div class="empty-assets">No costumes uploaded yet.</div></div>
+        <div class="costume-list" id="costumeList"><div class="empty-assets">Your saved costumes will appear here.</div></div>
       </div>
     </section>
     <section class="tab-panel" id="soundsPanel" role="tabpanel" aria-labelledby="soundsTab" hidden>
@@ -166,23 +203,20 @@
   <xml id="toolbox" style="display:none">
     <category name="Logic" categorystyle="logic_category">
       <block type="controls_if"></block><block type="logic_compare"></block>
-      <block type="logic_operation"></block><block type="logic_boolean"></block>
-      <block type="logic_negate"></block>
+      <block type="logic_operation"></block><block type="logic_boolean"></block><block type="logic_negate"></block>
     </category>
     <category name="Loops" categorystyle="loop_category">
       <block type="controls_repeat_ext"><value name="TIMES"><shadow type="math_number"><field name="NUM">5</field></shadow></value></block>
       <block type="controls_whileUntil"></block><block type="controls_for"></block>
     </category>
     <category name="Math" categorystyle="math_category">
-      <block type="math_number"></block><block type="math_arithmetic"></block>
-      <block type="math_single"></block><block type="math_random_int"></block>
+      <block type="math_number"></block><block type="math_arithmetic"></block><block type="math_single"></block><block type="math_random_int"></block>
     </category>
     <category name="Text" categorystyle="text_category">
       <block type="text"></block><block type="text_print"></block><block type="text_join"></block>
     </category>
     <category name="Lists" categorystyle="list_category">
-      <block type="lists_create_with"></block><block type="lists_length"></block>
-      <block type="lists_getIndex"></block>
+      <block type="lists_create_with"></block><block type="lists_length"></block><block type="lists_getIndex"></block>
     </category>
     <category name="Variables" custom="VARIABLE" categorystyle="variable_category"></category>
     <category name="Functions" custom="PROCEDURE" categorystyle="procedure_category"></category>
@@ -210,7 +244,6 @@
       });
       if (tab.id === 'codeTab') Blockly.svgResize(workspace);
     }
-
     tabs.forEach((tab, index) => {
       tab.addEventListener('click', () => selectTab(tab));
       tab.addEventListener('keydown', event => {
@@ -226,45 +259,321 @@
     function updateCode() {
       const code = generator.workspaceToCode(workspace);
       codePanel.textContent = code || 'Add blocks to get started.';
-      try {
-        localStorage.setItem(projectStorageKey, JSON.stringify({name: 'My Project', code}));
-      } catch (error) {
-        // The editor remains usable if browser storage is unavailable.
-      }
+      try { localStorage.setItem(projectStorageKey, JSON.stringify({name: 'My Project', code})); } catch (error) { /* Storage is optional. */ }
     }
     workspace.addChangeListener(updateCode);
-
     document.getElementById('runButton').addEventListener('click', () => {
-      const code = generator.workspaceToCode(workspace);
       const lines = [];
-      const print = value => lines.push(String(value));
       try {
-        new Function('alert', code)(print);
+        new Function('alert', generator.workspaceToCode(workspace))(value => lines.push(String(value)));
         output.textContent = lines.join('\n') || 'Done! Your program ran successfully.';
-      } catch (error) {
-        output.textContent = `Program error: ${error.message}`;
-      }
+      } catch (error) { output.textContent = `Program error: ${error.message}`; }
     });
-
     document.getElementById('seeProject').addEventListener('click', updateCode);
 
-    const costumeList = document.getElementById('costumeList');
-    document.getElementById('costumeUpload').addEventListener('change', event => {
-      const files = [...event.target.files];
-      if (!files.length) return;
-      costumeList.querySelector('.empty-assets')?.remove();
-      files.forEach(file => {
+    // Costume paint editor: permanent drawing layer plus a temporary layer for lines/stamps.
+    const baseCanvas = document.getElementById('costumeBaseCanvas');
+    const overlayCanvas = document.getElementById('costumeOverlayCanvas');
+    const ctx = baseCanvas.getContext('2d');
+    const overlayCtx = overlayCanvas.getContext('2d');
+    const paintState = {
+      color: '#ff0000', size: 5, tool: 'brush', drawing: false,
+      start: null, lineSnapshot: null, selected: null, dragging: false,
+      dragOffset: {x: 0, y: 0}, history: [], objectUrl: null
+    };
+    const paintStatus = document.getElementById('paintStatus');
+    const paintHint = document.getElementById('paintHint');
+    const costumeStorageKey = 'snapcode-costumes';
+
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, baseCanvas.width, baseCanvas.height);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    function mergedCanvas() {
+      const merged = document.createElement('canvas');
+      merged.width = baseCanvas.width;
+      merged.height = baseCanvas.height;
+      const mergedCtx = merged.getContext('2d');
+      mergedCtx.drawImage(baseCanvas, 0, 0);
+      mergedCtx.drawImage(overlayCanvas, 0, 0);
+      return merged;
+    }
+
+    function savePaintState() {
+      try {
+        paintState.history.push(mergedCanvas().toDataURL('image/png'));
+        if (paintState.history.length > 20) paintState.history.shift();
+      } catch (error) {
+        paintStatus.textContent = 'Could not save this canvas state.';
+      }
+    }
+
+    function restorePaintState(dataUrl) {
+      const image = new Image();
+      image.onload = () => {
+        ctx.clearRect(0, 0, baseCanvas.width, baseCanvas.height);
+        ctx.drawImage(image, 0, 0, baseCanvas.width, baseCanvas.height);
+        overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+        paintState.selected = null;
+      };
+      image.src = dataUrl;
+    }
+
+    savePaintState();
+
+    function canvasPoint(event) {
+      const rect = overlayCanvas.getBoundingClientRect();
+      return {
+        x: (event.clientX - rect.left) * overlayCanvas.width / rect.width,
+        y: (event.clientY - rect.top) * overlayCanvas.height / rect.height
+      };
+    }
+
+    function redrawOverlay(showSelection = true) {
+      overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+      if (!paintState.selected) return;
+      const obj = paintState.selected;
+      overlayCtx.drawImage(obj.image, obj.x, obj.y, obj.w, obj.h);
+      if (showSelection && paintState.tool === 'select') {
+        overlayCtx.save();
+        overlayCtx.strokeStyle = '#00897b';
+        overlayCtx.lineWidth = 2;
+        overlayCtx.setLineDash([5, 5]);
+        overlayCtx.strokeRect(obj.x, obj.y, obj.w, obj.h);
+        overlayCtx.restore();
+      }
+    }
+
+    function setPaintTool(tool) {
+      paintState.tool = tool;
+      document.querySelectorAll('.paint-tool[data-tool]').forEach(button => button.classList.toggle('active', button.dataset.tool === tool));
+      const hints = {
+        brush: 'Brush: draw freehand on the costume.',
+        line: 'Line: drag to draw a straight line.',
+        select: 'Select: click and drag a stamp to move it.',
+        eraser: 'Eraser: draw over areas to make them white.'
+      };
+      paintHint.textContent = hints[tool];
+      overlayCanvas.style.cursor = tool === 'select' ? 'move' : 'crosshair';
+      redrawOverlay();
+    }
+
+    document.getElementById('paintBrushTool').dataset.tool = 'brush';
+    document.getElementById('paintLineTool').dataset.tool = 'line';
+    document.getElementById('paintSelectTool').dataset.tool = 'select';
+    document.getElementById('paintEraserTool').dataset.tool = 'eraser';
+    document.querySelectorAll('.paint-tool[data-tool]').forEach(button => button.addEventListener('click', () => setPaintTool(button.dataset.tool)));
+
+    function startPaint(event) {
+      if (event.button !== undefined && event.button !== 0) return;
+      event.preventDefault();
+      const point = canvasPoint(event);
+      overlayCanvas.setPointerCapture(event.pointerId);
+
+      if (paintState.tool === 'select') {
+        const obj = paintState.selected;
+        if (obj && point.x >= obj.x && point.x <= obj.x + obj.w && point.y >= obj.y && point.y <= obj.y + obj.h) {
+          paintState.dragging = true;
+          paintState.dragOffset = {x: point.x - obj.x, y: point.y - obj.y};
+        } else {
+          paintState.selected = null;
+          redrawOverlay();
+        }
+        return;
+      }
+
+      paintState.drawing = true;
+      paintState.start = point;
+      if (paintState.tool === 'line') {
+        paintState.lineSnapshot = ctx.getImageData(0, 0, baseCanvas.width, baseCanvas.height);
+        return;
+      }
+      ctx.beginPath();
+      ctx.moveTo(point.x, point.y);
+      ctx.lineWidth = paintState.size;
+      ctx.strokeStyle = paintState.tool === 'eraser' ? '#ffffff' : paintState.color;
+      ctx.fillStyle = ctx.strokeStyle;
+      ctx.lineTo(point.x + 0.01, point.y + 0.01);
+      ctx.stroke();
+    }
+
+    function movePaint(event) {
+      const point = canvasPoint(event);
+      if (paintState.tool === 'select' && paintState.dragging && paintState.selected) {
+        const obj = paintState.selected;
+        obj.x = Math.max(0, Math.min(baseCanvas.width - obj.w, point.x - paintState.dragOffset.x));
+        obj.y = Math.max(0, Math.min(baseCanvas.height - obj.h, point.y - paintState.dragOffset.y));
+        redrawOverlay();
+        return;
+      }
+      if (!paintState.drawing) return;
+      if (paintState.tool === 'line') {
+        ctx.putImageData(paintState.lineSnapshot, 0, 0);
+        overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+        overlayCtx.beginPath();
+        overlayCtx.moveTo(paintState.start.x, paintState.start.y);
+        overlayCtx.lineTo(point.x, point.y);
+        overlayCtx.lineWidth = paintState.size;
+        overlayCtx.strokeStyle = paintState.color;
+        overlayCtx.lineCap = 'round';
+        overlayCtx.stroke();
+        return;
+      }
+      ctx.lineWidth = paintState.size;
+      ctx.strokeStyle = paintState.tool === 'eraser' ? '#ffffff' : paintState.color;
+      ctx.lineTo(point.x, point.y);
+      ctx.stroke();
+    }
+
+    function endPaint(event) {
+      if (paintState.drawing) {
+        if (paintState.tool === 'line') {
+          const point = event ? canvasPoint(event) : paintState.start;
+          ctx.putImageData(paintState.lineSnapshot, 0, 0);
+          ctx.beginPath();
+          ctx.moveTo(paintState.start.x, paintState.start.y);
+          ctx.lineTo(point.x, point.y);
+          ctx.lineWidth = paintState.size;
+          ctx.strokeStyle = paintState.color;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+          overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+        }
+        paintState.drawing = false;
+        ctx.closePath();
+        savePaintState();
+        paintStatus.textContent = 'Costume drawing updated.';
+      }
+      if (paintState.dragging) {
+        paintState.dragging = false;
+        savePaintState();
+        paintStatus.textContent = 'Stamp moved.';
+      }
+    }
+
+    overlayCanvas.addEventListener('pointerdown', startPaint);
+    overlayCanvas.addEventListener('pointermove', movePaint);
+    overlayCanvas.addEventListener('pointerup', endPaint);
+    overlayCanvas.addEventListener('pointercancel', endPaint);
+
+    document.getElementById('paintColor').addEventListener('input', event => {
+      paintState.color = event.target.value;
+      document.getElementById('paintColorName').textContent = paintState.color;
+    });
+    document.getElementById('paintSize').addEventListener('input', event => {
+      paintState.size = Number(event.target.value);
+      document.getElementById('paintSizeValue').textContent = `${paintState.size} px`;
+    });
+
+    function stampEmoji(emoji) {
+      const stamp = document.createElement('canvas');
+      stamp.width = 96;
+      stamp.height = 96;
+      const stampCtx = stamp.getContext('2d');
+      stampCtx.font = '76px "Apple Color Emoji", "Segoe UI Emoji", sans-serif';
+      stampCtx.textAlign = 'center';
+      stampCtx.textBaseline = 'middle';
+      stampCtx.fillText(emoji, 48, 52);
+      paintState.selected = {x: (baseCanvas.width - 80) / 2, y: (baseCanvas.height - 80) / 2, w: 80, h: 80, image: stamp};
+      setPaintTool('select');
+      redrawOverlay();
+      savePaintState();
+      paintStatus.textContent = `${emoji} added. Drag it to position it.`;
+    }
+    document.querySelectorAll('[data-stamp]').forEach(button => button.addEventListener('click', () => stampEmoji(button.dataset.stamp)));
+
+    document.getElementById('paintUndoTool').addEventListener('click', () => {
+      if (paintState.history.length < 2) {
+        paintStatus.textContent = 'Nothing to undo yet.';
+        return;
+      }
+      paintState.history.pop();
+      restorePaintState(paintState.history[paintState.history.length - 1]);
+      paintStatus.textContent = 'Last costume edit undone.';
+    });
+
+    document.getElementById('costumeImageUpload').addEventListener('change', event => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      if (paintState.objectUrl) URL.revokeObjectURL(paintState.objectUrl);
+      paintState.objectUrl = URL.createObjectURL(file);
+      const image = new Image();
+      image.onload = () => {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, baseCanvas.width, baseCanvas.height);
+        const scale = Math.min(baseCanvas.width / image.width, baseCanvas.height / image.height);
+        const width = image.width * scale;
+        const height = image.height * scale;
+        ctx.drawImage(image, (baseCanvas.width - width) / 2, (baseCanvas.height - height) / 2, width, height);
+        paintState.selected = null;
+        overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+        paintState.history = [];
+        savePaintState();
+        paintStatus.textContent = `Imported ${file.name}. Draw on it or add stamps.`;
+      };
+      image.onerror = () => { paintStatus.textContent = 'Could not open that image file.'; };
+      image.src = paintState.objectUrl;
+      event.target.value = '';
+    });
+
+    function loadSavedCostumes() {
+      const list = document.getElementById('costumeList');
+      let saved = [];
+      try { saved = JSON.parse(localStorage.getItem(costumeStorageKey) || '[]'); } catch (error) { saved = []; }
+      list.replaceChildren();
+      if (!saved.length) {
+        const empty = document.createElement('div');
+        empty.className = 'empty-assets';
+        empty.textContent = 'Your saved costumes will appear here.';
+        list.appendChild(empty);
+        return;
+      }
+      saved.forEach(costume => {
         const card = document.createElement('div');
         card.className = 'costume-card';
         const image = document.createElement('img');
-        image.alt = file.name;
-        image.src = URL.createObjectURL(file);
+        image.src = costume.image;
+        image.alt = costume.name;
         const name = document.createElement('p');
-        name.textContent = file.name;
-        card.append(image, name);
-        costumeList.appendChild(card);
+        name.textContent = costume.name;
+        const edit = document.createElement('button');
+        edit.type = 'button';
+        edit.className = 'paint-action';
+        edit.textContent = 'Edit';
+        edit.addEventListener('click', () => {
+          const loaded = new Image();
+          loaded.onload = () => {
+            ctx.clearRect(0, 0, baseCanvas.width, baseCanvas.height);
+            ctx.drawImage(loaded, 0, 0, baseCanvas.width, baseCanvas.height);
+            overlayCtx.clearRect(0, 0, overlayCanvas.width, overlayCanvas.height);
+            paintState.selected = null;
+            paintState.history = [];
+            savePaintState();
+            paintStatus.textContent = `Editing ${costume.name}.`;
+            window.scrollTo({top: 0, behavior: 'smooth'});
+          };
+          loaded.src = costume.image;
+        });
+        card.append(image, name, edit);
+        list.appendChild(card);
       });
-      event.target.value = '';
+    }
+
+    document.getElementById('saveCostume').addEventListener('click', () => {
+      const costumeName = window.prompt('Name this costume:', 'My Costume');
+      if (costumeName === null) return;
+      const name = costumeName.trim() || 'My Costume';
+      const image = mergedCanvas().toDataURL('image/png');
+      try {
+        const saved = JSON.parse(localStorage.getItem(costumeStorageKey) || '[]');
+        saved.push({name, image});
+        localStorage.setItem(costumeStorageKey, JSON.stringify(saved));
+        loadSavedCostumes();
+        paintStatus.textContent = `Saved “${name}” to this browser.`;
+      } catch (error) {
+        paintStatus.textContent = 'Could not save costume; browser storage may be full.';
+      }
     });
 
     const soundList = document.getElementById('soundList');
@@ -296,6 +605,7 @@
     message.render();
     starter.moveBy(40, 40);
     updateCode();
+    loadSavedCostumes();
   </script>
 </body>
 </html>
