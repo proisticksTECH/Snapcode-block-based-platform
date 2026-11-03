@@ -29,7 +29,7 @@
     .brand { color: #5b4bdb; font-size: 1.35rem; font-weight: 850; text-decoration: none; letter-spacing: -0.04em; }
     .project-name { color: #70748a; font-size: 0.95rem; }
     .spacer { flex: 1; }
-    button {
+    button, .preview {
       border: 0;
       border-radius: 10px;
       padding: 10px 17px;
@@ -38,11 +38,14 @@
       font: inherit;
       font-weight: 750;
       cursor: pointer;
+      text-decoration: none;
     }
-    button:hover { background: #4939c3; }
+    button:hover, .preview:hover { background: #4939c3; }
     button:focus-visible, a:focus-visible { outline: 3px solid #ffbd4a; outline-offset: 3px; }
     .run { background: #20a66a; }
     .run:hover { background: #168653; }
+    .preview { background: #ff9f43; color: #2a1900; }
+    .preview:hover { background: #ffb267; }
     main { padding: 18px; }
     .workspace-wrap {
       height: min(74vh, 680px);
@@ -84,6 +87,7 @@
     <a class="brand" href="./index.html">Snapcode</a>
     <span class="project-name">My Project</span>
     <span class="spacer"></span>
+    <a class="preview" id="seeProject" href="./projectpage.html">See Project</a>
     <button class="run" id="runButton" type="button">▶ Run</button>
   </header>
   <main>
@@ -129,9 +133,19 @@
     const output = document.getElementById('output');
     const codePanel = document.getElementById('code');
     const generator = javascript.javascriptGenerator;
+    const projectStorageKey = 'snapcode-project-preview';
 
     function updateCode() {
-      codePanel.textContent = generator.workspaceToCode(workspace) || 'Add blocks to get started.';
+      const code = generator.workspaceToCode(workspace);
+      codePanel.textContent = code || 'Add blocks to get started.';
+      try {
+        localStorage.setItem(projectStorageKey, JSON.stringify({
+          name: 'My Project',
+          code: code
+        }));
+      } catch (error) {
+        // The editor remains usable if browser storage is unavailable.
+      }
     }
     workspace.addChangeListener(updateCode);
 
@@ -140,12 +154,15 @@
       const lines = [];
       const print = value => lines.push(String(value));
       try {
-        // Blockly's standard print block calls alert; route that output into the page.
         new Function('alert', code)(print);
         output.textContent = lines.join('\n') || 'Done! Your program ran successfully.';
       } catch (error) {
         output.textContent = `Program error: ${error.message}`;
       }
+    });
+
+    document.getElementById('seeProject').addEventListener('click', () => {
+      updateCode();
     });
 
     const starter = workspace.newBlock('text_print');
