@@ -13,10 +13,45 @@
     :root { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #20233a; background: #f5f6fb; }
     * { box-sizing: border-box; }
     body { margin: 0; min-height: 100vh; }
-    header { height: 66px; display: flex; align-items: center; gap: 18px; padding: 0 22px; background: #fff; border-bottom: 1px solid #e6e8f0; }
-    .brand { color: #5b4bdb; font-size: 1.35rem; font-weight: 850; text-decoration: none; letter-spacing: -.04em; }
-    .project-name { color: #70748a; font-size: .95rem; }
+
+    header { height: 66px; display: flex; align-items: center; gap: 12px; padding: 0 18px; background: linear-gradient(180deg, #1e9de5 0%, #1a90e0 100%); border-bottom: 1px solid rgba(8, 64, 117, 0.28); }
+    .brand { color: #fff; font-size: 1.35rem; font-weight: 850; text-decoration: none; letter-spacing: -.04em; }
+    .project-name { color: rgba(255,255,255,.92); font-size: .95rem; }
     .spacer { flex: 1; }
+
+    .editor-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+    }
+    .menu-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 9px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .menu-button:hover { background: rgba(255,255,255,0.19); border-color: rgba(255,255,255,0.28); }
+    .menu-button.accent {
+      background: rgba(134, 227, 255, 0.18);
+      border-color: rgba(214, 245, 255, 0.36);
+    }
+    .menu-button.accent:hover { background: rgba(134, 227, 255, 0.28); }
+    .caret { opacity: 0.85; font-size: 0.7rem; }
+
     button, .preview { border: 0; border-radius: 10px; padding: 10px 17px; color: #fff; background: #5b4bdb; font: inherit; font-weight: 750; cursor: pointer; text-decoration: none; }
     button:hover, .preview:hover { background: #4939c3; }
     button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #ffbd4a; outline-offset: 3px; }
@@ -82,19 +117,32 @@
       header { gap: 10px; padding: 0 12px; } .project-name { display: none; } main { padding: 10px; }
       .workspace-wrap { height: 64vh; min-height: 340px; } .bottom { grid-template-columns: 1fr; }
       .tabs { padding-left: 10px; } .tab { padding: 10px 12px; } .asset-view { padding: 14px; } .paint-canvas-wrap { padding: 8px; }
+      .editor-toolbar { flex-wrap: wrap; }
     }
   </style>
 </head>
 <body>
   <header>
-    <a class="brand" href="./index.html">Snapcode</a><span class="project-name">My Project</span><span class="spacer"></span>
-    <a class="preview" id="seeProject" href="./projectpage.html">See Project</a><button class="run" id="runButton" type="button">▶ Run</button>
+    <a class="brand" href="./index.html">Snapcode</a>
+    <span class="project-name">My Project</span>
+
+    <div class="editor-toolbar" aria-label="Project menu bar">
+      <button class="menu-button" type="button" aria-label="Settings"><span aria-hidden="true">⚙️</span> Settings <span class="caret">▼</span></button>
+      <button class="menu-button" type="button" aria-label="Edit"><span aria-hidden="true">✎</span> Edit <span class="caret">▼</span></button>
+      <button class="menu-button" type="button" aria-label="Addons"><span aria-hidden="true">🧩</span> Addons <span class="caret">▼</span></button>
+      <a class="menu-button accent" id="seeProject" href="./projectpage.html" aria-label="Project"><span aria-hidden="true">📁</span> Project</a>
+    </div>
+
+    <span class="spacer"></span>
+    <button class="run" id="runButton" type="button">▶ Run</button>
   </header>
+
   <nav class="tabs" role="tablist" aria-label="Project editor tabs">
     <button class="tab" id="codeTab" type="button" role="tab" aria-selected="true" aria-controls="codePanel"><span aria-hidden="true">⚑</span> Code</button>
     <button class="tab" id="costumesTab" type="button" role="tab" aria-selected="false" aria-controls="costumesPanel"><span aria-hidden="true">🖌</span> Costumes</button>
     <button class="tab" id="soundsTab" type="button" role="tab" aria-selected="false" aria-controls="soundsPanel"><span aria-hidden="true">🔊</span> Sounds</button>
   </nav>
+
   <main>
     <section class="tab-panel" id="codePanel" role="tabpanel" aria-labelledby="codeTab">
       <div class="workspace-wrap"><div id="blocklyDiv" aria-label="Snapcode block editor"></div></div>
@@ -103,6 +151,7 @@
         <div class="panel"><h2>Generated code</h2><pre id="code">Add blocks to get started.</pre></div>
       </section>
     </section>
+
     <section class="tab-panel" id="costumesPanel" role="tabpanel" aria-labelledby="costumesTab" hidden>
       <div class="asset-view">
         <h1>Costumes</h1><p>Draw or stamp directly on the costume canvas. Import an image and save your finished costume.</p>
@@ -137,6 +186,7 @@
         <div class="costume-list" id="costumeList"><div class="empty-assets">Your saved costumes will appear here.</div></div>
       </div>
     </section>
+
     <section class="tab-panel" id="soundsPanel" role="tabpanel" aria-labelledby="soundsTab" hidden>
       <div class="asset-view"><h1>Sounds</h1><p>Add audio files to your project, then play them here to preview.</p>
         <div class="asset-toolbar"><label for="soundUpload"><strong>Upload sound files</strong></label><input id="soundUpload" type="file" accept="audio/*" multiple></div>
@@ -144,6 +194,7 @@
       </div>
     </section>
   </main>
+
   <xml id="toolbox" style="display:none">
     <category name="Logic" categorystyle="logic_category"><block type="controls_if"></block><block type="logic_compare"></block><block type="logic_operation"></block><block type="logic_boolean"></block><block type="logic_negate"></block></category>
     <category name="Loops" categorystyle="loop_category"><block type="controls_repeat_ext"><value name="TIMES"><shadow type="math_number"><field name="NUM">5</field></shadow></value></block><block type="controls_whileUntil"></block><block type="controls_for"></block></category>
@@ -152,6 +203,7 @@
     <category name="Lists" categorystyle="list_category"><block type="lists_create_with"></block><block type="lists_length"></block><block type="lists_getIndex"></block></category>
     <category name="Variables" custom="VARIABLE" categorystyle="variable_category"></category><category name="Functions" custom="PROCEDURE" categorystyle="procedure_category"></category>
   </xml>
+
   <script>
     const workspace = Blockly.inject('blocklyDiv', {toolbox: document.getElementById('toolbox'), trashcan: true, grid: {spacing: 20, length: 3, colour: '#dddff0', snap: true}, zoom: {controls: true, wheel: true, startScale: 0.95, maxScale: 1.5, minScale: 0.55}, move: {scrollbars: true, drag: true, wheel: true}});
     const output = document.getElementById('output');
@@ -217,9 +269,9 @@
     [['paintBrushTool','brush'],['paintLineTool','line'],['paintSelectTool','select'],['paintEraserTool','eraser']].forEach(([id,tool])=>{const button=document.getElementById(id);button.dataset.tool=tool;button.addEventListener('click',()=>setPaintTool(tool));});
     function startPaint(event) {
       if (event.button !== undefined && event.button !== 0) return; event.preventDefault(); const point=canvasPoint(event); overlayCanvas.setPointerCapture(event.pointerId);
-      if(paintState.tool==='select') { const obj=paintState.selected; if(obj&&point.x>=obj.x&&point.x<=obj.x+obj.w&&point.y>=obj.y&&point.y<=obj.y+obj.h){paintState.dragging=true;paintState.dragOffset={x:point.x-obj.x,y:point.y-obj.y};}else{paintState.selected=null;redrawOverlay();} return; }
+      if(paintState.tool==='select') { const obj=paintState.selected; if(obj&&point.x>=obj.x&&point.x<=obj.x+obj.w&&point.y>=obj.y&&point.y<=obj.y+obj.h){paintState.dragging=true;paintState.dragOffset={x:point.x-obj.x,y:point.y-obj.y}; return;} }
       paintState.drawing=true; paintState.start=point;
-      if(paintState.tool==='line'){paintState.lineSnapshot=ctx.getImageData(0,0,baseCanvas.width,baseCanvas.height);return;}
+      if(paintState.tool==='line'){paintState.lineSnapshot=ctx.getImageData(0,0,baseCanvas.width,baseCanvas.height); return;}
       ctx.beginPath();ctx.moveTo(point.x,point.y);ctx.lineWidth=paintState.size;ctx.strokeStyle=paintState.tool==='eraser'?'#fff':paintState.color;ctx.lineTo(point.x+.01,point.y+.01);ctx.stroke();
     }
     function movePaint(event) {
@@ -230,14 +282,14 @@
       ctx.lineWidth=paintState.size;ctx.strokeStyle=paintState.tool==='eraser'?'#fff':paintState.color;ctx.lineTo(point.x,point.y);ctx.stroke();
     }
     function endPaint(event) {
-      if(paintState.drawing){if(paintState.tool==='line'){const point=event?canvasPoint(event):paintState.start;ctx.putImageData(paintState.lineSnapshot,0,0);ctx.beginPath();ctx.moveTo(paintState.start.x,paintState.start.y);ctx.lineTo(point.x,point.y);ctx.lineWidth=paintState.size;ctx.strokeStyle=paintState.color;ctx.lineCap='round';ctx.stroke();overlayCtx.clearRect(0,0,overlayCanvas.width,overlayCanvas.height);}paintState.drawing=false;ctx.closePath();savePaintState();paintStatus.textContent='Costume drawing updated.';}
+      if(paintState.drawing){if(paintState.tool==='line'){const point=event?canvasPoint(event):paintState.start;ctx.putImageData(paintState.lineSnapshot,0,0);ctx.beginPath();ctx.moveTo(paintState.start.x,paintState.start.y);ctx.lineTo(point.x,point.y);ctx.lineWidth=paintState.size;ctx.strokeStyle=paintState.color;ctx.stroke();}paintState.drawing=false;savePaintState();paintStatus.textContent='Costume drawing updated.';}
       if(paintState.dragging){paintState.dragging=false;savePaintState();paintStatus.textContent='Stamp moved.';}
     }
     overlayCanvas.addEventListener('pointerdown',startPaint);overlayCanvas.addEventListener('pointermove',movePaint);overlayCanvas.addEventListener('pointerup',endPaint);overlayCanvas.addEventListener('pointercancel',endPaint);
     document.getElementById('paintColor').addEventListener('input',event=>{paintState.color=event.target.value;document.getElementById('paintColorName').textContent=paintState.color;});
     document.getElementById('paintSize').addEventListener('input',event=>{paintState.size=Number(event.target.value);document.getElementById('paintSizeValue').textContent=`${paintState.size} px`;});
     function stampEmoji(emoji) {
-      const stamp=document.createElement('canvas');stamp.width=96;stamp.height=96;const stampCtx=stamp.getContext('2d');stampCtx.font='76px "Apple Color Emoji", "Segoe UI Emoji", sans-serif';stampCtx.textAlign='center';stampCtx.textBaseline='middle';stampCtx.fillText(emoji,48,52);
+      const stamp=document.createElement('canvas');stamp.width=96;stamp.height=96;const stampCtx=stamp.getContext('2d');stampCtx.font='76px "Apple Color Emoji", "Segoe UI Emoji", sans-serif';stampCtx.textAlign='center';stampCtx.textBaseline='middle';stampCtx.fillText(emoji,48,58);
       paintState.selected={x:(baseCanvas.width-80)/2,y:(baseCanvas.height-80)/2,w:80,h:80,image:stamp};setPaintTool('select');redrawOverlay();savePaintState();paintStatus.textContent=`${emoji} added. Drag it to position it.`;
     }
     document.querySelectorAll('[data-stamp]').forEach(button=>button.addEventListener('click',()=>stampEmoji(button.dataset.stamp)));
@@ -257,12 +309,11 @@
         const name=document.createElement('p');name.textContent=costume.name;
         const actions=document.createElement('div');actions.className='costume-card-actions';
         const edit=document.createElement('button');edit.type='button';edit.textContent='Edit';
-        edit.addEventListener('click',()=>{const loaded=new Image();loaded.onload=()=>{ctx.clearRect(0,0,baseCanvas.width,baseCanvas.height);ctx.drawImage(loaded,0,0,baseCanvas.width,baseCanvas.height);overlayCtx.clearRect(0,0,overlayCanvas.width,overlayCanvas.height);paintState.selected=null;paintState.history=[];savePaintState();paintStatus.textContent=`Editing ${costume.name}.`;window.scrollTo({top:0,behavior:'smooth'});};loaded.src=costume.image;});
+        edit.addEventListener('click',()=>{const loaded=new Image();loaded.onload=()=>{ctx.clearRect(0,0,baseCanvas.width,baseCanvas.height);ctx.drawImage(loaded,0,0,baseCanvas.width,baseCanvas.height);overlayCtx.clearRect(0,0,overlayCanvas.width,overlayCanvas.height);paintState.selected=null;paintStatus.textContent=`Editing “${costume.name}”.`;};loaded.src=costume.image;});
         const remove=document.createElement('button');remove.type='button';remove.className='delete-costume';remove.textContent='Delete';remove.setAttribute('aria-label',`Delete costume ${costume.name}`);
         remove.addEventListener('click',()=>{
           if(!window.confirm(`Delete the costume “${costume.name}”? This cannot be undone.`))return;
-          const current=readCostumes();current.splice(index,1);
-          try{localStorage.setItem(costumeStorageKey,JSON.stringify(current));loadSavedCostumes();paintStatus.textContent=`Deleted “${costume.name}”.`;}catch(error){paintStatus.textContent='Could not delete the costume from browser storage.';}
+          const current=readCostumes();current.splice(index,1);try{localStorage.setItem(costumeStorageKey,JSON.stringify(current));loadSavedCostumes();paintStatus.textContent=`Deleted “${costume.name}”.`;}catch(error){paintStatus.textContent='Could not delete the costume from browser storage.';}
         });
         actions.append(edit,remove);card.append(image,name,actions);list.appendChild(card);
       });
@@ -275,7 +326,7 @@
     const soundList=document.getElementById('soundList');
     document.getElementById('soundUpload').addEventListener('change',event=>{const files=[...event.target.files];if(!files.length)return;soundList.querySelector('.empty-assets')?.remove();files.forEach(file=>{const card=document.createElement('div');card.className='sound-card';const name=document.createElement('strong');name.textContent=file.name;const audio=document.createElement('audio');audio.controls=true;audio.src=URL.createObjectURL(file);card.append(name,audio);soundList.appendChild(card);});event.target.value='';});
 
-    const starter=workspace.newBlock('text_print');const message=workspace.newBlock('text');message.setFieldValue('Hello from Snapcode!','TEXT');starter.getInput('TEXT').connection.connect(message.outputConnection);starter.initSvg();message.initSvg();starter.render();message.render();starter.moveBy(40,40);updateCode();loadSavedCostumes();
+    const starter=workspace.newBlock('text_print');const message=workspace.newBlock('text');message.setFieldValue('Hello from Snapcode!','TEXT');starter.getInput('TEXT').connection.connect(message.outputConnection);starter.initSvg();message.initSvg();starter.render();message.render();starter.moveBy(40,40);message.moveBy(40,40);updateCode();loadSavedCostumes();
   </script>
 </body>
 </html>
