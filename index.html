@@ -28,54 +28,17 @@
       gap: 12px;
       min-height: 70px;
       padding: 12px 18px;
-      background: rgba(17, 21, 37, 0.9);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: #f9c74f;
+      border-bottom: 1px solid rgba(65, 53, 12, 0.2);
       box-shadow: none;
     }
     .brand {
-      color: #fff;
+      color: #1b1d22;
       font-size: 1.35rem;
       font-weight: 850;
       text-decoration: none;
       letter-spacing: -0.04em;
     }
-    .site-toolbar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 10px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
-    }
-    .menu-button {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 9px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-      font: inherit;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease;
-    }
-    .menu-button:hover {
-      background: rgba(255,255,255,0.19);
-      border-color: rgba(255,255,255,0.28);
-    }
-    .menu-button.accent {
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.18);
-    }
-    .menu-button.accent:hover {
-      background: rgba(255,255,255,0.14);
-    }
-    .caret { opacity: 0.85; font-size: 0.7rem; }
     .spacer { flex: 1; }
     .main-wrap {
       display: grid;
@@ -124,7 +87,6 @@
     footer { margin-top: 28px; color: #9295b2; font-size: 0.85rem; }
     @media (max-width: 700px) {
       .site-header { gap: 10px; padding: 10px 12px; }
-      .site-toolbar { flex-wrap: wrap; }
       .brand { font-size: 1.15rem; }
     }
   </style>
@@ -132,16 +94,7 @@
 <body>
   <header class="site-header">
     <a class="brand" href="./index.html">Snapcode</a>
-    <nav class="site-toolbar" aria-label="Main navigation">
-      <button class="menu-button" type="button" aria-label="Settings"><span aria-hidden="true">⚙️</span> Settings <span class="caret">▼</span></button>
-      <button class="menu-button" type="button" aria-label="File"><span aria-hidden="true">📄</span> File <span class="caret">▼</span></button>
-      <button class="menu-button" type="button" aria-label="Edit"><span aria-hidden="true">✎</span> Edit <span class="caret">▼</span></button>
-      <button class="menu-button" type="button" aria-label="Addons"><span aria-hidden="true">🧩</span> Addons <span class="caret">▼</span></button>
-      <button class="menu-button" type="button" aria-label="Advanced"><span aria-hidden="true">⚙️</span> Advanced <span class="caret">▼</span></button>
-      <a class="menu-button accent" href="./projectpage.html" aria-label="Project"><span aria-hidden="true">📁</span> Project</a>
-    </nav>
     <span class="spacer"></span>
-    <a class="menu-button accent" href="./editor.html" aria-label="See Project Page"><span aria-hidden="true">➡️</span> See Project Page</a>
   </header>
   <div class="main-wrap">
     <main>
