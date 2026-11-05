@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What’s Happening?</title>
+  <style>
+    :root {
+      --page-bg: #f3f4f5;
+      --panel-bg: #f7f7f7;
+      --border: #d9d9d9;
+      --text: #2a3b50;
+      --skeleton: #cfcfcf;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--page-bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .panel + .panel {
+      border-left: 1px solid var(--border);
+    }
+
+    .panel-header {
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #2d3d55;
+      padding: 18px 22px 10px;
+    }
+
+    .right-panel {
+      padding: 18px 22px 0;
+    }
+
+    .placeholder-box {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .skeleton {
+      width: 100%;
+      height: 42px;
+      background: var(--skeleton);
+      border-radius: 6px;
+      opacity: 0.9;
+    }
+
+    .skeleton.short {
+      width: 76%;
+    }
+
+    .skeleton.tall {
+      height: 60px;
+    }
+
+    @media (max-width: 860px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <section class="panel">
+      <div class="panel-header">What's Happening?</div>
+    </section>
+
+    <section class="panel right-panel">
+      <div class="placeholder-box">
+        <div class="skeleton tall"></div>
+        <div class="skeleton tall"></div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
