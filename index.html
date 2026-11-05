@@ -1,108 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Welcome to Snapcode, a creative block-coding editor.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Snapcode</title>
   <style>
     :root {
-      color-scheme: dark;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #101326;
-      color: #f7f7ff;
+      --page-bg: #f3f4f5;
+      --panel-bg: #f7f7f7;
+      --border: #d9d9d9;
+      --text: #2a3b50;
+      --muted: #9aa4af;
+      --skeleton: #cfcfcf;
     }
+
     * { box-sizing: border-box; }
+
     body {
-      min-height: 100vh;
       margin: 0;
-      background: radial-gradient(ellipse at 15% 15%, #4838a8 0, transparent 38%),
-        radial-gradient(ellipse at 90% 85%, #087d91 0, transparent 34%), #101326;
+      min-height: 100vh;
+      background: var(--page-bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
     }
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-height: 70px;
-      padding: 12px 18px;
-      background: #f9c74f;
-      border-bottom: 1px solid rgba(65, 53, 12, 0.2);
-      box-shadow: none;
+
+    .page {
+      min-height: 100vh;
+      background: var(--page-bg);
     }
-    .brand {
-      color: #1b1d22;
-      font-size: 1.35rem;
-      font-weight: 850;
-      text-decoration: none;
-      letter-spacing: -0.04em;
-    }
-    .spacer { flex: 1; }
-    .main-wrap {
+
+    .content {
       display: grid;
-      place-items: center;
-      min-height: calc(100vh - 70px);
-      padding: 24px;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
     }
-    main {
-      width: min(760px, 100%);
-      padding: clamp(32px, 7vw, 72px);
-      border: 1px solid rgb(255 255 255 / 14%);
-      border-radius: 28px;
-      background: rgb(20 23 48 / 88%);
-      box-shadow: 0 24px 80px rgb(0 0 0 / 35%);
-      text-align: center;
+
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      min-height: 100vh;
+      padding: 0;
+      position: relative;
     }
-    .mark {
-      width: 76px;
-      height: 76px;
-      display: grid;
-      place-items: center;
-      margin: 0 auto 20px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #ffbd4a, #ff6a8b 55%, #9b76ff);
-      color: #17152a;
-      font-size: 2.2rem;
-      font-weight: 900;
-      transform: rotate(-5deg);
+
+    .panel + .panel {
+      border-left: 1px solid var(--border);
     }
-    h1 { margin: 0; font-size: clamp(3rem, 9vw, 5rem); letter-spacing: -0.07em; }
-    h1 span { color: #a997ff; }
-    p { max-width: 520px; margin: 16px auto 28px; color: #c4c6dc; font-size: 1.08rem; line-height: 1.7; }
-    .start {
-      display: inline-block;
-      padding: 14px 24px;
-      border-radius: 999px;
-      background: #ffbf00;
-      color: #342600;
+
+    .panel-header {
+      font-size: clamp(1.2rem, 2vw, 2.15rem);
       font-weight: 800;
-      text-decoration: none;
-      box-shadow: 0 4px 0 #d99a00;
-      transition: transform 150ms ease, background 150ms ease;
+      letter-spacing: -0.04em;
+      color: #2b3d57;
+      padding: 18px 22px 10px;
+      line-height: 1.2;
     }
-    .start:hover { transform: translateY(-2px); background: #ffd34d; }
-    .start:focus-visible { outline: 3px solid white; outline-offset: 4px; }
-    footer { margin-top: 28px; color: #9295b2; font-size: 0.85rem; }
-    @media (max-width: 700px) {
-      .site-header { gap: 10px; padding: 10px 12px; }
-      .brand { font-size: 1.15rem; }
+
+    .panel-body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 0 20px 20px;
+    }
+
+    .skeleton {
+      display: block;
+      width: 100%;
+      height: 18px;
+      background: var(--skeleton);
+      border-radius: 6px;
+      opacity: 0.9;
+    }
+
+    .skeleton.short {
+      width: 72%;
+    }
+
+    .skeleton.large {
+      height: 38px;
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    .right-panel {
+      padding-top: 18px;
+    }
+
+    .right-panel .skeleton:first-child {
+      margin-top: 0;
+    }
+
+    .placeholder-block {
+      height: calc(100vh - 136px);
+      border-radius: 0;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .placeholder-block .skeleton.large {
+      height: 50px;
+      background: #d1d1d1;
+    }
+
+    @media (max-width: 860px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        min-height: 48vh;
+      }
+
+      .panel + .panel {
+        border-left: 1px solid var(--border);
+        border-top: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="./index.html">Snapcode</a>
-    <span class="spacer"></span>
-  </header>
-  <div class="main-wrap">
-    <main>
-      <div class="mark" aria-hidden="true">S</div>
-      <h1>Snap<span>code</span></h1>
-      <p>Make games, animations, and stories with colorful code blocks. Your creative studio is ready.</p>
-      <a class="start" href="./editor.html">Start creating</a>
-      <footer>Made for curious minds.</footer>
+  <div class="page">
+    <main class="content" aria-label="Content columns">
+      <section class="panel" aria-label="Left column">
+        <div class="panel-header">What's Happening?</div>
+      </section>
+
+      <section class="panel right-panel" aria-label="Right column">
+        <div class="panel-body placeholder-block">
+          <div class="skeleton large"></div>
+          <div class="skeleton large"></div>
+        </div>
+      </section>
     </main>
   </div>
 </body>
