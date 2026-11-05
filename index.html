@@ -1,99 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Welcome to Snapcode, a creative block-coding editor.">
   <title>Snapcode</title>
   <style>
     :root {
+      color-scheme: dark;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #53647b;
-      background: #fff;
+      background: #101326;
+      color: #f7f7ff;
     }
-
     * { box-sizing: border-box; }
-
     body {
       min-height: 100vh;
       margin: 0;
-      padding: 5px 4px;
-      background: #fff;
+      background: radial-gradient(ellipse at 15% 15%, #4838a8 0, transparent 38%),
+        radial-gradient(ellipse at 90% 85%, #087d91 0, transparent 34%), #101326;
     }
-
-    .content {
-      display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-      gap: 16px;
-      min-height: calc(100vh - 10px);
-    }
-
-    .panel {
-      min-width: 0;
-      overflow: hidden;
-      border: 1px solid #d9d9d9;
-      border-radius: 12px 12px 0 0;
-      background: #fff;
-    }
-
-    .panel-header {
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
       display: flex;
       align-items: center;
-      height: 38px;
-      padding: 0 19px;
-      border-bottom: 1px solid #d9d9d9;
-      background: #f1f1f1;
+      gap: 12px;
+      min-height: 70px;
+      padding: 12px 18px;
+      background: linear-gradient(180deg, #1fa4d8 0%, #1d9ed0 100%);
+      border-bottom: 1px solid rgba(8, 64, 117, 0.28);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
     }
-
-    .panel-title {
-      margin: 0;
-      color: #53647b;
-      font-size: 16px;
+    .brand {
+      color: #fff;
+      font-size: 1.35rem;
+      font-weight: 850;
+      text-decoration: none;
+      letter-spacing: -0.04em;
+    }
+    .site-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+    }
+    .menu-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 9px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      font: inherit;
       font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
     }
-
-    .right-header {
-      justify-content: space-between;
-      padding: 0 14px;
+    .menu-button:hover {
+      background: rgba(255,255,255,0.19);
+      border-color: rgba(255,255,255,0.28);
     }
-
-    .header-bar {
-      display: block;
-      height: 22px;
-      background: #d0d1d2;
+    .menu-button.accent {
+      background: rgba(134, 227, 255, 0.18);
+      border-color: rgba(214, 245, 255, 0.36);
     }
-
-    .header-bar-main { width: 36%; }
-    .header-bar-short { width: 14%; height: 14px; }
-
-    .panel-body {
-      min-height: calc(100vh - 49px);
-      background: #fff;
+    .menu-button.accent:hover {
+      background: rgba(134, 227, 255, 0.28);
     }
-
-    @media (max-width: 680px) {
-      .content {
-        grid-template-columns: 1fr;
-        grid-template-rows: minmax(280px, 1fr) minmax(280px, 1fr);
-      }
+    .caret { opacity: 0.85; font-size: 0.7rem; }
+    .spacer { flex: 1; }
+    .main-wrap {
+      display: grid;
+      place-items: center;
+      min-height: calc(100vh - 70px);
+      padding: 24px;
+    }
+    main {
+      width: min(760px, 100%);
+      padding: clamp(32px, 7vw, 72px);
+      border: 1px solid rgb(255 255 255 / 14%);
+      border-radius: 28px;
+      background: rgb(20 23 48 / 88%);
+      box-shadow: 0 24px 80px rgb(0 0 0 / 35%);
+      text-align: center;
+    }
+    .mark {
+      width: 76px;
+      height: 76px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 20px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #ffbd4a, #ff6a8b 55%, #9b76ff);
+      color: #17152a;
+      font-size: 2.2rem;
+      font-weight: 900;
+      transform: rotate(-5deg);
+    }
+    h1 { margin: 0; font-size: clamp(3rem, 9vw, 5rem); letter-spacing: -0.07em; }
+    h1 span { color: #a997ff; }
+    p { max-width: 520px; margin: 16px auto 28px; color: #c4c6dc; font-size: 1.08rem; line-height: 1.7; }
+    .start {
+      display: inline-block;
+      padding: 14px 24px;
+      border-radius: 999px;
+      background: #ffbf00;
+      color: #342600;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 4px 0 #d99a00;
+      transition: transform 150ms ease, background 150ms ease;
+    }
+    .start:hover { transform: translateY(-2px); background: #ffd34d; }
+    .start:focus-visible { outline: 3px solid white; outline-offset: 4px; }
+    footer { margin-top: 28px; color: #9295b2; font-size: 0.85rem; }
+    @media (max-width: 700px) {
+      .site-header { gap: 10px; padding: 10px 12px; }
+      .site-toolbar { flex-wrap: wrap; }
+      .brand { font-size: 1.15rem; }
     }
   </style>
 </head>
 <body>
-  <main class="content" aria-label="Two-panel layout">
-    <section class="panel" aria-label="What's Happening">
-      <header class="panel-header">
-        <h1 class="panel-title">What's Happening?</h1>
-      </header>
-      <div class="panel-body"></div>
-    </section>
-
-    <section class="panel" aria-label="Second panel">
-      <header class="panel-header right-header" aria-hidden="true">
-        <span class="header-bar header-bar-main"></span>
-        <span class="header-bar header-bar-short"></span>
-      </header>
-      <div class="panel-body"></div>
-    </section>
-  </main>
+  <header class="site-header">
+    <a class="brand" href="./index.html">Snapcode</a>
+    <nav class="site-toolbar" aria-label="Main navigation">
+      <button class="menu-button" type="button" aria-label="Settings"><span aria-hidden="true">⚙️</span> Settings <span class="caret">▼</span></button>
+      <button class="menu-button" type="button" aria-label="File"><span aria-hidden="true">📄</span> File <span class="caret">▼</span></button>
+      <button class="menu-button" type="button" aria-label="Edit"><span aria-hidden="true">✎</span> Edit <span class="caret">▼</span></button>
+      <button class="menu-button" type="button" aria-label="Addons"><span aria-hidden="true">🧩</span> Addons <span class="caret">▼</span></button>
+      <button class="menu-button" type="button" aria-label="Advanced"><span aria-hidden="true">⚙️</span> Advanced <span class="caret">▼</span></button>
+      <a class="menu-button accent" href="./projectpage.html" aria-label="Project"><span aria-hidden="true">📁</span> Project</a>
+    </nav>
+    <span class="spacer"></span>
+    <a class="menu-button accent" href="./editor.html" aria-label="See Project Page"><span aria-hidden="true">➡️</span> See Project Page</a>
+  </header>
+  <div class="main-wrap">
+    <main>
+      <div class="mark" aria-hidden="true">S</div>
+      <h1>Snap<span>code</span></h1>
+      <p>Make games, animations, and stories with colorful code blocks. Your creative studio is ready.</p>
+      <a class="start" href="./editor.html">Start creating</a>
+      <footer>Made for curious minds.</footer>
+    </main>
+  </div>
 </body>
 </html>
