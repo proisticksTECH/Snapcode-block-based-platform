@@ -6,135 +6,94 @@
   <title>Snapcode</title>
   <style>
     :root {
-      --page-bg: #f3f4f5;
-      --panel-bg: #f7f7f7;
-      --border: #d9d9d9;
-      --text: #2a3b50;
-      --muted: #9aa4af;
-      --skeleton: #cfcfcf;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #53647b;
+      background: #fff;
     }
 
     * { box-sizing: border-box; }
 
     body {
+      min-height: 100vh;
       margin: 0;
-      min-height: 100vh;
-      background: var(--page-bg);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-    }
-
-    .page {
-      min-height: 100vh;
-      background: var(--page-bg);
+      padding: 5px 4px;
+      background: #fff;
     }
 
     .content {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 100vh;
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: 16px;
+      min-height: calc(100vh - 10px);
     }
 
     .panel {
-      background: var(--panel-bg);
-      border: 1px solid var(--border);
-      min-height: 100vh;
-      padding: 0;
-      position: relative;
-    }
-
-    .panel + .panel {
-      border-left: 1px solid var(--border);
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid #d9d9d9;
+      border-radius: 12px 12px 0 0;
+      background: #fff;
     }
 
     .panel-header {
-      font-size: clamp(1.2rem, 2vw, 2.15rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      color: #2b3d57;
-      padding: 18px 22px 10px;
-      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      height: 38px;
+      padding: 0 19px;
+      border-bottom: 1px solid #d9d9d9;
+      background: #f1f1f1;
     }
+
+    .panel-title {
+      margin: 0;
+      color: #53647b;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .right-header {
+      justify-content: space-between;
+      padding: 0 14px;
+    }
+
+    .header-bar {
+      display: block;
+      height: 22px;
+      background: #d0d1d2;
+    }
+
+    .header-bar-main { width: 36%; }
+    .header-bar-short { width: 14%; height: 14px; }
 
     .panel-body {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      padding: 0 20px 20px;
+      min-height: calc(100vh - 49px);
+      background: #fff;
     }
 
-    .skeleton {
-      display: block;
-      width: 100%;
-      height: 18px;
-      background: var(--skeleton);
-      border-radius: 6px;
-      opacity: 0.9;
-    }
-
-    .skeleton.short {
-      width: 72%;
-    }
-
-    .skeleton.large {
-      height: 38px;
-      border-radius: 8px;
-      width: 100%;
-    }
-
-    .right-panel {
-      padding-top: 18px;
-    }
-
-    .right-panel .skeleton:first-child {
-      margin-top: 0;
-    }
-
-    .placeholder-block {
-      height: calc(100vh - 136px);
-      border-radius: 0;
-      background: transparent;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-top: 8px;
-    }
-
-    .placeholder-block .skeleton.large {
-      height: 50px;
-      background: #d1d1d1;
-    }
-
-    @media (max-width: 860px) {
+    @media (max-width: 680px) {
       .content {
         grid-template-columns: 1fr;
-      }
-
-      .panel {
-        min-height: 48vh;
-      }
-
-      .panel + .panel {
-        border-left: 1px solid var(--border);
-        border-top: 0;
+        grid-template-rows: minmax(280px, 1fr) minmax(280px, 1fr);
       }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <main class="content" aria-label="Content columns">
-      <section class="panel" aria-label="Left column">
-        <div class="panel-header">What's Happening?</div>
-      </section>
+  <main class="content" aria-label="Two-panel layout">
+    <section class="panel" aria-label="What's Happening">
+      <header class="panel-header">
+        <h1 class="panel-title">What's Happening?</h1>
+      </header>
+      <div class="panel-body"></div>
+    </section>
 
-      <section class="panel right-panel" aria-label="Right column">
-        <div class="panel-body placeholder-block">
-          <div class="skeleton large"></div>
-          <div class="skeleton large"></div>
-        </div>
-      </section>
-    </main>
-  </div>
+    <section class="panel" aria-label="Second panel">
+      <header class="panel-header right-header" aria-hidden="true">
+        <span class="header-bar header-bar-main"></span>
+        <span class="header-bar header-bar-short"></span>
+      </header>
+      <div class="panel-body"></div>
+    </section>
+  </main>
 </body>
 </html>
