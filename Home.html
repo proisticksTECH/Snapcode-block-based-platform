@@ -3,101 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home-snapcode</title>
+  <title>Snapcode home</title>
   <style>
     :root {
-      --page-bg: #f3f3f4;
-      --panel-bg: #f6f6f6;
-      --border: #d8d8d8;
-      --text: #2d3d58;
-      --skeleton: #d0d0d0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #53647b;
+      background: #fff;
     }
 
     * { box-sizing: border-box; }
 
     body {
-      margin: 0;
       min-height: 100vh;
-      background: var(--page-bg);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
+      margin: 0;
+      padding: 5px 4px;
+      background: #fff;
     }
 
-    .layout {
+    .content {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 100vh;
-      background: var(--page-bg);
+      grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+      gap: 16px;
+      min-height: calc(100vh - 10px);
     }
 
     .panel {
-      background: var(--panel-bg);
-      border: 1px solid var(--border);
-      min-height: 100vh;
-      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid #d9d9d9;
+      border-radius: 12px 12px 0 0;
+      background: #fff;
     }
 
-    .panel + .panel {
-      border-left: 1px solid var(--border);
-    }
-
-    .left-title {
-      padding: 18px 22px 0;
-      font-weight: 800;
-      font-size: clamp(1.8rem, 2vw, 2.5rem);
-      letter-spacing: -0.04em;
-      color: var(--text);
-    }
-
-    .right {
-      padding: 18px 18px 0;
-    }
-
-    .ghost-stack {
+    .panel-header {
       display: flex;
-      flex-direction: column;
-      gap: 16px;
-      width: 100%;
+      align-items: center;
+      height: 38px;
+      padding: 0 19px;
+      border-bottom: 1px solid #d9d9d9;
+      background: #f1f1f1;
     }
 
-    .ghost {
-      background: var(--skeleton);
-      border-radius: 6px;
-      height: 18px;
-      width: 100%;
+    .panel-title {
+      margin: 0;
+      color: #53647b;
+      font-size: 16px;
+      font-weight: 700;
     }
 
-    .ghost.top {
-      width: 78%;
-      height: 20px;
-      margin-top: 4px;
+    .right-header {
+      justify-content: space-between;
+      padding: 0 14px;
     }
 
-    .ghost.bottom {
-      width: 100%;
-      height: 54px;
-      margin-top: 2px;
+    .header-bar {
+      display: block;
+      height: 22px;
+      background: #d0d1d2;
     }
 
-    @media (max-width: 768px) {
-      .layout {
+    .header-bar-main { width: 36%; }
+    .header-bar-short { width: 14%; height: 14px; }
+
+    .panel-body {
+      min-height: calc(100vh - 49px);
+      background: #fff;
+    }
+
+    @media (max-width: 680px) {
+      .content {
         grid-template-columns: 1fr;
+        grid-template-rows: minmax(280px, 1fr) minmax(280px, 1fr);
       }
     }
   </style>
 </head>
 <body>
-  <div class="layout">
-    <div class="panel">
-      <div class="left-title">What's Happening?</div>
-    </div>
+  <main class="content" aria-label="Two-panel layout">
+    <section class="panel" aria-label="What's Happening">
+      <header class="panel-header">
+        <h1 class="panel-title">What's going on?</h1>
+      </header>
+      <div class="panel-body"></div>
+    </section>
 
-    <div class="panel right">
-      <div class="ghost-stack">
-        <div class="ghost top"></div>
-        <div class="ghost bottom"></div>
-      </div>
-    </div>
-  </div>
+    <section class="panel" aria-label="Second panel">
+      <header class="panel-header right-header" aria-hidden="true">
+        <span class="header-bar header-bar-main"></span>
+        <span class="header-bar header-bar-short"></span>
+      </header>
+      <div class="panel-body"></div>
+    </section>
+  </main>
 </body>
 </html>
