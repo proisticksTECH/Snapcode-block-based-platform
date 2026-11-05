@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Snapcode editor with additional text, math, and utility blocks.">
+  <title>Snapcode Editor — More Blocks</title>
+  <style>
+    html, body, #editorFrame { width: 100%; height: 100%; margin: 0; border: 0; overflow: hidden; }
+    #loadError { display: none; position: fixed; z-index: 2; inset: 12px 12px auto; padding: 12px 16px; border: 1px solid #e7a54a; border-radius: 8px; background: #fff4df; color: #49320b; font: 14px/1.5 system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="loadError" role="alert">Could not add the extra blocks. Open this page from the same website as editor.html, then reload.</div>
+  <iframe id="editorFrame" title="Snapcode block editor" src="./editor.html"></iframe>
+  <script>
+    const frame = document.getElementById('editorFrame');
+    const showError = () => { document.getElementById('loadError').style.display = 'block'; };
+
+    frame.addEventListener('load', () => {
+      try {
+        const win = frame.contentWindow;
+        const doc = frame.contentDocument;
+        const Blockly = win.Blockly;
+        const generator = win.javascript.javascriptGenerator;
+        const workspace = Blockly.getMainWorkspace();
+        if (!Blockly || !generator || !workspace) throw new Error('Blockly editor did not initialize');
+
+        Blockly.Blocks.snapcode_text_reverse = {
+          init: function () {
+            this.appendValueInput('TEXT').setCheck('String').appendField('reverse text');
+            this.setOutput(true, 'String');
+            this.setColour(160);
+            this.setTooltip('Returns the text in reverse order.');
+          }
+        };
+        generator.forBlock.snapcode_text_reverse = function (block, gen) {
+          const text = gen.valueToCode(block, 'TEXT', gen.ORDER_FUNCTION_CALL) || "''";
+          return [`Array.from(${text}).reverse().join('')`, gen.ORDER_FUNCTION_CALL];
+        };
+
+        Blockly.Blocks.snapcode_text_contains = {
+          init: function () {
+            this.appendValueInput('TEXT').setCheck('String').appendField('text');
+            this.appendValueInput('PART').setCheck('String').appendField('contains');
+            this.setInputsInline(true);
+            this.setOutput(true, 'Boolean');
+            this.setColour(160);
+            this.setTooltip('Checks whether the first text contains the second text.');
+          }
+        };
+        generator.forBlock.snapcode_text_contains = function (block, gen) {
+          const text = gen.valueToCode(block, 'TEXT', gen.ORDER_MEMBER) || "''";
+          const part = gen.valueToCode(block, 'PART', gen.ORDER_NONE) || "''";
+          return [`String(${text}).includes(String(${part}))`, gen.ORDER_FUNCTION_CALL];
+        };
+
+        Blockly.Blocks.snapcode_text_replace = {
+          init: function () {
+            this.appendValueInput('TEXT').setCheck('String').appendField('in text');
+            this.appendValueInput('FIND').setCheck('String').appendField('replace');
+            this.appendValueInput('WITH').setCheck('String').appendField('with');
+            this.setInputsInline(true);
+            this.setOutput(true, 'String');
+            this.setColour(160);
+            this.setTooltip('Replaces every occurrence of one text value with another.');
+          }
+        };
+        generator.forBlock.snapcode_text_replace = function (block, gen) {
+          const text = gen.valueToCode(block, 'TEXT', gen.ORDER_MEMBER) || "''";
+          const find = gen.valueToCode(block, 'FIND', gen.ORDER_NONE) || "''";
+          const replacement = gen.valueToCode(block, 'WITH', gen.ORDER_NONE) || "''";
+          return [`String(${text}).split(String(${find})).join(String(${replacement}))`, gen.ORDER_FUNCTION_CALL];
+        };
+
+        Blockly.Blocks.snapcode_math_clamp = {
+          init: function () {
+            this.appendValueInput('VALUE').setCheck('Number').appendField('clamp');
+            this.appendValueInput('MIN').setCheck('Number').appendField('between');
+            this.appendValueInput('MAX').setCheck('Number').appendField('and');
+            this.setInputsInline(true);
+            this.setOutput(true, 'Number');
+            this.setColour(230);
+            this.setTooltip('Keeps a number between the chosen minimum and maximum.');
+          }
+        };
+        generator.forBlock.snapcode_math_clamp = function (block, gen) {
+          const value = gen.valueToCode(block, 'VALUE', gen.ORDER_NONE) || '0';
+          const min = gen.valueToCode(block, 'MIN', gen.ORDER_NONE) || '0';
+          const max = gen.valueToCode(block, 'MAX', gen.ORDER_NONE) || '100';
+          return [`Math.min(Math.max(Number(${value}), Number(${min})), Number(${max}))`, gen.ORDER_FUNCTION_CALL];
+        };
+
+        Blockly.Blocks.snapcode_random_float = {
+          init: function () {
+            this.appendValueInput('MIN').setCheck('Number').appendField('random decimal from');
+            this.appendValueInput('MAX').setCheck('Number').appendField('to');
+            this.setInputsInline(true);
+            this.setOutput(true, 'Number');
+            this.setColour(230);
+            this.setTooltip('Picks a random decimal in the range, including the minimum but excluding the maximum.');
+          }
+        };
+        generator.forBlock.snapcode_random_float = function (block, gen) {
+          const min = gen.valueToCode(block, 'MIN', gen.ORDER_NONE) || '0';
+          const max = gen.valueToCode(block, 'MAX', gen.ORDER_NONE) || '1';
+          return [`Number(${min}) + Math.random() * (Number(${max}) - Number(${min}))`, gen.ORDER_ADDITION];
+        };
+
+        Blockly.Blocks.snapcode_round_digits = {
+          init: function () {
+            this.appendValueInput('VALUE').setCheck('Number').appendField('round');
+            this.appendValueInput('DIGITS').setCheck('Number').appendField('to decimal places');
+            this.setInputsInline(true);
+            this.setOutput(true, 'Number');
+            this.setColour(230);
+            this.setTooltip('Rounds a number to the requested number of decimal places.');
+          }
+        };
+        generator.forBlock.snapcode_round_digits = function (block, gen) {
+          const value = gen.valueToCode(block, 'VALUE', gen.ORDER_NONE) || '0';
+          const digits = gen.valueToCode(block, 'DIGITS', gen.ORDER_NONE) || '0';
+          return [`Math.round(Number(${value}) * Math.pow(10, Number(${digits}))) / Math.pow(10, Number(${digits}))`, gen.ORDER_DIVISION];
+        };
+
+        const toolbox = doc.getElementById('toolbox').cloneNode(true);
+        const category = doc.createElement('category');
+        category.setAttribute('name', 'More Blocks');
+        category.setAttribute('colour', '#18a3a6');
+        [
+          'snapcode_text_reverse', 'snapcode_text_contains', 'snapcode_text_replace',
+          'snapcode_math_clamp', 'snapcode_random_float', 'snapcode_round_digits'
+        ].forEach(type => {
+          const block = doc.createElement('block');
+          block.setAttribute('type', type);
+          category.appendChild(block);
+        });
+        toolbox.appendChild(category);
+        workspace.updateToolbox(toolbox);
+      } catch (error) {
+        console.error('Unable to install Snapcode extra blocks:', error);
+        showError();
+      }
+    });
+  </script>
+</body>
+</html>
