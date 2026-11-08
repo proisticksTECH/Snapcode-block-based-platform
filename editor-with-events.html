@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Snapcode Editor with Events</title>
+  <style>
+    html, body, #editorFrame { width: 100%; height: 100%; margin: 0; border: 0; }
+    body { overflow: hidden; }
+    #loadError {
+      display: none;
+      position: fixed;
+      z-index: 5;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      padding: 12px 16px;
+      border: 1px solid #e7a54a;
+      border-radius: 8px;
+      background: #fff4df;
+      color: #49320b;
+      font: 14px/1.5 system-ui, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="loadError" role="alert">Events could not be added. Open this page from the same site as editor.html and check that Blockly loaded.</div>
+  <iframe id="editorFrame" title="Snapcode visual block editor" src="./editor.html"></iframe>
+  <script>
+    const frame = document.getElementById('editorFrame');
+
+    frame.addEventListener('load', () => {
+      try {
+        const win = frame.contentWindow;
+        const doc = frame.contentDocument;
+        const Blockly = win.Blockly;
+        const generator = win.javascript && win.javascript.javascriptGenerator;
+        const workspace = Blockly && Blockly.getMainWorkspace();
+        if (!Blockly || !generator || !workspace) throw new Error('Blockly is not initialized');
+
+        const keyOptions = [
+          ['space', ' '], ['enter', 'Enter'], ['up arrow', 'ArrowUp'],
+          ['down arrow', 'ArrowDown'], ['left arrow', 'ArrowLeft'],
+          ['right arrow', 'ArrowRight'], ['escape', 'Escape'],
+          ...'abcdefghijklmnopqrstuvwxyz'.split('').map(letter => [letter, letter])
+        ];
+
+        Blockly.Blocks.snapcode_when_run = {
+          init: function () {
+            this.appendDummyInput().appendField('when Run clicked');
+            this.appendStatementInput('DO');
+            this.setColour('#ffbf00');
+            this.setTooltip('Runs this script whenever the editor Run button is clicked.');
+            this.setHelpUrl('');
+          }
+        };
+
+        Blockly.Blocks.snapcode_when_key = {
+          init: function () {
+            this.appendDummyInput()
+              .appendField('when')
+              .appendField(new Blockly.FieldDropdown(keyOptions), 'KEY')
+              .appendField('key pressed');
+            this.appendStatementInput('DO');
+            this.setColour('#ffbf00');
+            this.setTooltip('Runs this script when the selected key is pressed.');
+            this.setHelpUrl('');
+          }
+        };
+
+        // The Run hat's body is naturally executed by the editor's existing Run button.
+        generator.forBlock.snapcode_when_run = function (block, gen) {
+          return gen.statementToCode(block, 'DO');
+        };
+
+        // Register each key script by block ID. Re-running the project replaces the
+        // registry, so repeated Run clicks do not accumulate duplicate keyboard handlers.
+        generator.forBlock.snapcode_when_key = function (block, gen) {
+          const key = block.getFieldValue('KEY');
+          const body = gen.statementToCode(block, 'DO');
+          const id = JSON.stringify(block.id);
+          const keyValue = JSON.stringify(key);
+          return [
+            'window.__snapcodeKeyScripts = window.__snapcodeKeyScripts || Object.create(null);\n' +
+            'window.__snapcodeKeyScripts[' + id + '] = {key: ' + keyValue + ', run: function(event) {\n' +
+            body +
+            '}};\n' +
+            'if (!window.__snapcodeKeyDispatcherInstalled) {\n' +
+            '  window.__snapcodeKeyDispatcherInstalled = true;\n' +
+            '  document.addEventListener("keydown", function(event) {\n' +
+            '    var pressed = event.key === " " || event.key === "Spacebar" ? " " : event.key;\n' +
+            '    Object.keys(window.__snapcodeKeyScripts || {}).forEach(function(id) {\n' +
+            '      var script = window.__snapcodeKeyScripts[id];\n' +
+            '      if (script && script.key === pressed) { try { script.run(event); } catch (error) { console.error("Key script error:", error); } }\n' +
+            '    });\n' +
+            '  });\n' +
+            '}\n',
+            gen.ORDER_ATOMIC
+          ];
+        };
+
+        const toolbox = doc.getElementById('toolbox').cloneNode(true);
+        const events = doc.createElement('category');
+        events.setAttribute('name', 'Events');
+        events.setAttribute('colour', '#ffbf00');
+        events.setAttribute('categorystyle', 'event_category');
+        const runHat = doc.createElement('block');
+        runHat.setAttribute('type', 'snapcode_when_run');
+        const keyHat = doc.createElement('block');
+        keyHat.setAttribute('type', 'snapcode_when_key');
+        events.append(runHat, keyHat);
+        toolbox.insertBefore(events, toolbox.firstChild);
+        workspace.updateToolbox(toolbox);
+
+        // The host click capture runs before editor.html's existing Run handler.
+        // Clear prior key scripts, then the newly generated program registers current ones.
+        const runButton = doc.getElementById('runButton');
+        if (!runButton) throw new Error('Run button not found');
+        runButton.addEventListener('click', () => {
+          win.__snapcodeKeyScripts = Object.create(null);
+        }, true);
+
+        // Show a simple hint in the existing editor output/status area on key activity.
+        doc.addEventListener('keydown', event => {
+          const output = doc.getElementById('output');
+          if (output && win.__snapcodeKeyScripts) {
+            const normalized = event.key === 'Spacebar' ? ' ' : event.key;
+            const hasHandler = Object.values(win.__snapcodeKeyScripts).some(script => script.key === normalized);
+            if (hasHandler) output.textContent = `Key script ran: ${normalized === ' ' ? 'space' : normalized}`;
+          }
+        });
+      } catch (error) {
+        console.error('Unable to install event blocks:', error);
+        document.getElementById('loadError').style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
